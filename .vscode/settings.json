@@ -1,0 +1,57 @@
+{
+    "latex-workshop.latex.tools" : [
+        {
+            "name": "lualatex",
+            "command": "lualatex",
+            "args": [
+                "-shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-output-directory=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "synctex = 1",
+                "-interaction = nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ],
+            "env": {}
+        }
+    ],
+
+    "latex-workshop.latex.recipes" : [
+        {
+            "name": "lualatex",
+            "tools": [
+                "lualatex"
+            ]
+        },
+        {
+            "name": "xelatex",
+            "tools": [
+                "xelatex"
+            ]
+        }
+    ],
+
+    "ltex.additionalRules.motherTongue": "it",
+    "ltex.checkFrequency": "save",
+    "ltex.completionEnabled": true,
+    "files.trimTrailingWhitespace": true,
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
