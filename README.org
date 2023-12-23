@@ -1,0 +1,85 @@
+#+OPTIONS: date:nil title:nil toc:nil author:nil
+#+STARTUP: overview
+----------------------------------------------------------------
+#+BEGIN_HTML
+<div align="center">
+  <!-- License -->
+  <a href="https://github.com/DavideGargiulo/UninaDelivery/blob/main/LICENSE"
+          ><img
+              src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge&color=red"
+              alt="License"
+      /></a>
+   <!-- Work on my machine -->
+   <a href="https://img.shields.io/badge/WORKS%20ON-MY%20MACHINE-red?style=for-the-badge"
+             ><img
+               src="https://img.shields.io/badge/WORKS%20ON-MY%20MACHINE-red?style=for-the-badge"
+               alt="Work on my machine"
+        /></a>
+</div>
+<h1 align="center">UninaDelivery</h1>
+#+END_HTML
+
+* Contenuti :toc:
+- [[#contributori][Contributori]]
+- [[#traccia][Traccia]]
+- [[#struttura][Struttura]]
+- [[#installazione][Installazione]]
+    - [[#requisiti][Requisiti]]
+
+* Contributori
+#+BEGIN_HTML
+<div align = "center">
+  <table>
+    <tbody>
+      <tr>
+        <!-- DavideGargiulo -->
+        <td align="center" valign="top" width="14.28%">
+          <a href="https://github.com/DavideGargiulo">
+            <img src="https://avatars2.githubusercontent.com/u/107481480?v=4?s=100" width="100px;" alt="DavideGargiulo"/>
+            <br /><sub><b>Davide Gargiulo</b></sub>
+          </a>
+          <br>
+          <a href="https://github.com/DavideGargiulo" title="Creator">📝</a>
+          <a href="https://github.com/DavideGargiulo/UninaDelivery/commits?author=DavideGargiulo" title="Commits">💻</a>
+          <a href="https://github.com/DavideGargiulo/UninaDelivery/blob/main/README.org" title="Code documentation">📖</a>
+        </td>
+        <!-- Vincent0x12 -->
+        <td align="center" valign="top" width="14.28%">
+          <a href="https://github.com/Vincent0x12">
+            <img src="https://avatars.githubusercontent.com/u/148357135?v=4" width="100px;" alt="Vincent0x12"/>
+            <br /><sub><b>Vincenzo Di Carluccio</b></sub>
+          </a>
+          <br>
+          <a href="https://github.com/Vincent0x12" title="Creator">📝</a>
+          <a href="https://github.com/DavideGargiulo/UninaDelivery/commits?author=Vincent0x12" title="Commits">💻</a>
+          <a href="https://github.com/DavideGargiulo/UninaDelivery/blob/main/README.org" title="Code documentation">📖</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+#+END_HTML
+
+* Traccia
+UninaDelivery è un sistema di gestione della logistica delle spedizioni di merci. Sulla base degli ordini dei clienti l’operatore può, attraverso l’uso del sistema, pianificare le spedizioni, tenendo conto di fattori come la disponibilità della merce ed il suo peso, la presenza di mezzi di trasporto e corrieri disponibili. Si utilizzino le proprie conoscenze del dominio per definire dettagli non specificati nella traccia.
+
+* Struttura
+- ~DataBases/~: Cartella relativa a Basi di Dati;
+  - ~DataBases/DataBases-Documentation~: Documentazione relativa a Base di Dati;
+    - ~DataBases/Documentazione-BasiDiDati-OOBB2324_18.pdf~: Documentazione relativa a Base di Dati;
+  - ~DataBases/DataBases-src~: Codice sorgente relativo a Base di Dati;
+- ~ObjectOrientation/~: Cartella relativa a Object Orientation;
+  - ~ObjectOrientation/Documentation~: Documentazione relativa a Object Orientation;
+    - ~DataBases/Documentazione-ObjectOrientation-OOBB2324_18.pdf~: Documentazione relativa a Object Orientation;
+  - ~ObjectOrientation/ObjectOrientation-src~: Codice sorgente relativo a Object Orientation;
+- ~README.org~: README relativo al progetto.
+
+* Installazione
+
+** Requisiti
+
+- Java 21+;
+- Scene Builder 21.0.0+;
+- PostgreSQL 16+;
+- JavaFX 21+;
+- MaterialFx 11.16.0+.
