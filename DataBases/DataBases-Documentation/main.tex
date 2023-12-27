@@ -1,16 +1,28 @@
 \documentclass{uninaDeliveyClass}
 
-\title{Unina delivery}
-\author{Davide Gargiulo -- Vincenzo Di Carluccio}
-\date{December 2023}
+\reportlayout
 
 \begin{document}
 
-\maketitle
+    \include{chapters/titlePage.tex}
 
-\tableofcontents
+    \newpage
 
-\newpage
+    \newgeometry{
+        left=24.8mm,
+        top=24.8mm,
+        right=24.8mm,
+        bottom=24.8mm,
+        vmargin=0.7cm,
+        hmargin=2cm,
+        includeheadfoot=true,
+        headheight=30pt
+    }
 
-\section{Introduction}
+    \tableofcontents
+
+    \newpage
+
+    \include{chapters/chapter1.tex}
+
 \end{document}
