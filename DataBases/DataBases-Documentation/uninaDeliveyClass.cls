@@ -3,96 +3,93 @@
 \LoadClass[a4paper]{article}
 
 % Packages
-\RequirePackage{graphicx}
-\RequirePackage[a4paper, width=180mm, bottom=25mm, top=25mm, bindingoffset=6mm]{geometry}
-\RequirePackage{fancyhdr}
-\RequirePackage{xcolor}
-\RequirePackage{amsmath, amssymb, amsthm, amsfonts}
-\RequirePackage{mathtools}
-\RequirePackage{hyperref}
-\RequirePackage{titlesec}
-\RequirePackage{baskervald}
-\RequirePackage{tikz}
-\RequirePackage{afterpage}
-\RequirePackage{fontspec}
-\RequirePackage{changepage}
-\RequirePackage{float}
-\RequirePackage{setspace}
-\RequirePackage{lastpage}
-\RequirePackage{titletoc}
+\RequirePackage{graphicx}                                                                     % Package for including graphics in your document
+\RequirePackage[a4paper, width=180mm, bottom=25mm, top=25mm, bindingoffset=6mm]{geometry}     % Package for specifying the page layout
+\RequirePackage{fancyhdr}                                                                     % Package for customizing page headers and footers
+\RequirePackage{xcolor}                                                                       % Package for using colors in your document
+\RequirePackage{amsmath, amssymb, amsthm, amsfonts}                                           % Package Packages for advanced mathematical typesetting
+\RequirePackage{mathtools}                                                                    % Extension to AMS Math, providing additional tools
+\RequirePackage{hyperref}                                                                     % Package for creating hyperlinks in the document
+\RequirePackage{titlesec}                                                                     % Package for customizing section titles
+\RequirePackage{tikz}                                                                         % Package for creating graphics and diagrams
+\RequirePackage{afterpage}                                                                    % Package for executing commands after the current page
+\RequirePackage{fontspec}                                                                     % Package for configuring and loading fonts
+\RequirePackage{changepage}                                                                   % Package for changing the layout of individual pages
+\RequirePackage{float}                                                                        % Package for customizing the appearance of floats (e.g., figures and tables)
+\RequirePackage{setspace}                                                                     % Package for setting line spacing in the document
+\RequirePackage{lastpage}                                                                     % Package for referring to the last page of the document
+\RequirePackage{titletoc}                                                                     % Package for customizing the table of contents
 
-\newcommand{\coursename}{Corso}
+\newcommand{\coursename}{Corso}                                                               % Course Name
 \newcommand{\ocoursename}[1]{\renewcommand{\coursename}{#1}}
 
-\newcommand{\reportcity}{Corso}
+\newcommand{\reportcity}{Corso}                                                               % Report City
 \newcommand{\oreportcity}[1]{\renewcommand{\reportcity}{#1}}
 
-\newcommand{\coursenamedue}{Corso}
+\newcommand{\coursenamedue}{Corso}                                                            % Second Course Name
 \newcommand{\ocoursenamedue}[1]{\renewcommand{\coursenamedue}{#1}}
 
-\newcommand{\reportyear}{Corso}
+\newcommand{\reportyear}{Corso}                                                               % Report Year
 \newcommand{\oreportyear}[1]{\renewcommand{\reportyear}{#1}}
 
-\newcommand{\groupnumber}{Corso}
+\newcommand{\groupnumber}{Corso}                                                              % Group Number
 \newcommand{\ogroupnumber}[1]{\renewcommand{\groupnumber}{#1}}
 
-\newcommand{\titlelineuno}{Obiettivo Relazione}
+\newcommand{\titlelineuno}{Obiettivo Relazione}                                               % First Title Line
 \newcommand{\otitlelineuno}[1]{\renewcommand{\titlelineuno}{#1}}
 
-\newcommand{\titlelinedue}{Obiettivo Relazione}
+\newcommand{\titlelinedue}{Obiettivo Relazione}                                               % Second Title Line
 \newcommand{\otitlelinedue}[1]{\renewcommand{\titlelinedue}{#1}}
 
-\newcommand{\mytitle}{Titolo relazione}
+\newcommand{\mytitle}{Titolo relazione}                                                       % Report Title
 \newcommand{\omytitle}[1]{\renewcommand{\mytitle}{#1}}
 
-\newcommand{\advisor}{Autori}
+\newcommand{\advisor}{Autori}                                                                 % Advisor
 \newcommand{\oadvisor}[1]{\renewcommand{\advisor}{#1}}
 
-\newcommand{\reportplace}{Napoli}
+\newcommand{\reportplace}{Napoli}                                                             % Report Place
 \newcommand{\oreportplace}[1]{\renewcommand{\reportplace}{#1}}
 
-\newcommand{\reporttime}{\the\year} % Removed \Month from \reporttime
+\newcommand{\reporttime}{\the\year}                                                           % Report Time
 \newcommand{\oreporttime}[1]{\renewcommand{\reporttime}{#1}}
 
 \makeatletter
-\newcommand{\reporttype}{BASI DI DATI} % Changed \@reporttype to \reporttype
+\newcommand{\reporttype}{BASI DI DATI}                                                        % Report Type (using makeatletter to handle @ symbol)
 \newcommand{\oreporttype}[1]{\renewcommand{\reporttype}{#1}}
 \makeatother
 
 \oreporttype{BASI DI DATI}
 
-\setmainfont{BauerBodoni}[
-  Path = fonts/,
-  Extension = .ttf,
-  UprightFont = *-Regular,
-  BoldFont = *-Bold,
-  ItalicFont = *-Italic,
-  BoldItalicFont = *-BoldItalic
+\setmainfont{BauerBodoni}[                                                                    % Set the main font to BauerBodoni
+  Path = fonts/,                                                                              % Set the path to the directory containing the font files
+  Extension = .ttf,                                                                           % Specify the file extension for the font files
+  UprightFont = *-Regular,                                                                    % Specify the font for the upright (normal) style
+  BoldFont = *-Bold,                                                                          % Specify the font for the bold style
+  ItalicFont = *-Italic,                                                                      % Specify the font for the italic style
+  BoldItalicFont = *-BoldItalic                                                               % Specify the font for the bold italic style
 ]
 
-% Apply the fancy page style to the entire document
-\pagestyle{fancy}
+\pagestyle{fancy}                                                                             % Set page style to 'fancy'
 
-\definecolor{pantoneRed}{HTML}{9B0014}
-\definecolor{pantoneBlue}{HTML}{6667ab}
+\definecolor{pantoneRed}{HTML}{9B0014}                                                        % Define color pantoneRed using HTML notation
+\definecolor{pantoneBlue}{HTML}{6667ab}                                                       % Define color pantoneBlue using HTML notation
 
-\def\reportlayout{
+\def\reportlayout{                                                                            % Define a command to set the report layout
 
-  \onehalfspacing
+  \onehalfspacing                                                                             % Set line spacing to one and a half
 
-  \hypersetup{
+  \hypersetup{                                                                                % Hyperref setup for links and colors
     colorlinks=true,
     urlcolor=black,
     linkcolor=black,
     citecolor=FC3D21
   }
 
-  \pagestyle{fancy}
+  \pagestyle{fancy}                                                                           % Set fancy page style with rules
   \renewcommand{\headrulewidth}{0.3pt}
   \renewcommand{\footrulewidth}{0.3pt}
 
-%tutte le pagine
-  \fancyhead{}
+  \fancyhead{}                                                                                % Header and footer content for all pages
   \fancyhead[L]{
     \begin{tabular}{rl}
       \begin{picture}(25,15)(0,0)
@@ -111,10 +108,46 @@
     \end{tabular}
   }
 
-  \fancyfoot{}
+  \fancyfoot{}                                                                                % Footer content for all pages
   \fancyfoot[L]{\scriptsize \ttfamily \oreporttype}
   \fancyfoot[R]{\scriptsize \ttfamily Page {\thepage}/\pageref{LastPage}}
 }
 
-\setlength{\headheight}{61pt}
-\addtolength{\topmargin}{-40pt}
+\setlength{\headheight}{61pt}                                                                 % Set the height of the header
+\addtolength{\topmargin}{-40pt}                                                               % Adjust the top margin to create more space for the header
+
+\setcounter{secnumdepth}{3}                                                                   % Set the depth of section numbering to include subsubsections
+
+\titleformat{\section}                                                                        % Format and spacing for section headings
+  {\Huge\bfseries\color{pantoneRed}}
+  {\thesection}
+  {10pt}
+  {\Huge}
+\titlespacing*{\section}{0pt}{30pt}{0pt}
+
+\titleformat{\subsection}                                                                     % Format and spacing for subsection headings
+  {\Large\bfseries\color{black}}
+  {\thesubsection}
+  {10pt}
+  {\Large}
+\titlespacing*{\subsection}{0pt}{30pt}{0pt}
+
+\titleformat{\subsubsection}                                                                  % Format and spacing for subsubsection headings
+  {\large\bfseries\color{black}}
+  {\thesubsubsection}
+  {10pt}
+  {\large}
+\titlespacing*{\subsubsection}{0pt}{30pt}{0pt}
+
+\makeatletter
+        %% Global
+        \setlength\parindent{0pt}
+        \setlength\parskip{0.75em}
+        \setlength{\headsep}{1cm}
+
+        %% Define no Par Skip
+        \let\svpar\par
+        \edef\svparskip{\the\parskip}
+        \def\revertpar{\svpar\setlength\parskip{\svparskip}\let\par\svpar}
+        \def\noparskip{\leavevmode\setlength\parskip{0pt}\def\par{\svpar\let\par\revertpar}}
+\makeatother
