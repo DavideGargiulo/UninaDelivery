@@ -1,12 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{uninaDeliveyClass}[2023/12/01 Unina Delivery Class]
-\LoadClass[a4paper]{article}
+\LoadClass{article}
 
 % Packages
 \RequirePackage{graphicx}                                                                     % Package for including graphics in your document
 \RequirePackage[a4paper, width=180mm, bottom=25mm, top=25mm, bindingoffset=6mm]{geometry}     % Package for specifying the page layout
 \RequirePackage{fancyhdr}                                                                     % Package for customizing page headers and footers
-\RequirePackage{xcolor}                                                                       % Package for using colors in your document
+\RequirePackage[table]{xcolor}                                                                       % Package for using colors in your document
 \RequirePackage{amsmath, amssymb, amsthm, amsfonts}                                           % Package Packages for advanced mathematical typesetting
 \RequirePackage{mathtools}                                                                    % Extension to AMS Math, providing additional tools
 \RequirePackage{hyperref}                                                                     % Package for creating hyperlinks in the document
@@ -19,6 +19,9 @@
 \RequirePackage{setspace}                                                                     % Package for setting line spacing in the document
 \RequirePackage{lastpage}                                                                     % Package for referring to the last page of the document
 \RequirePackage{titletoc}                                                                     % Package for customizing the table of contents
+\RequirePackage{adjustbox}                                                                    % Package for adjusting the size of the content
+\RequirePackage{enumitem}                                                                     % Package for customizing lists
+\RequirePackage{pdfpages}                                                                     % Package for including PDF pages
 
 \newcommand{\coursename}{Corso}                                                               % Course Name
 \newcommand{\ocoursename}[1]{\renewcommand{\coursename}{#1}}
@@ -130,20 +133,21 @@
   {\thesubsection}
   {10pt}
   {\Large}
-\titlespacing*{\subsection}{0pt}{30pt}{0pt}
+\titlespacing*{\subsection}{0pt}{0pt}{0pt}
 
 \titleformat{\subsubsection}                                                                  % Format and spacing for subsubsection headings
-  {\large\bfseries\color{black}}
+  {\Large\bfseries\color{black}}
   {\thesubsubsection}
-  {10pt}
-  {\large}
+  {1em} % Space between the label and the title
+  {}
+  {\Large}
 \titlespacing*{\subsubsection}{0pt}{30pt}{0pt}
 
 \makeatletter
         %% Global
         \setlength\parindent{0pt}
         \setlength\parskip{0.75em}
-        \setlength{\headsep}{1cm}
+        \setlength{\headsep}{0.5cm}
 
         %% Define no Par Skip
         \let\svpar\par
