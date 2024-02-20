@@ -1,0 +1,2 @@
+{"rule":"MORFOLOGIK_RULE_IT_IT","sentence":"^\\Qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa Gruppo XX Davide Gargiulo david.gargiulo@studenti.unina.it N86004689 Vincenzo Di Carluccio vi.dicarluccio@studenti.unina.it N86004800\\E$"}
+{"rule":"MORFOLOGIK_RULE_IT_IT","sentence":"^\\Qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa Gruppo OOBD2324_18 Davide Gargiulo david.gargiulo@studenti.unina.it N86004689 Vincenzo Di Carluccio vi.dicarluccio@studenti.unina.it N86004800\\E$"}
