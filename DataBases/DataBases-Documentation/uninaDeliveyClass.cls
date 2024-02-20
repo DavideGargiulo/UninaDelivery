@@ -141,7 +141,7 @@
   {1em} % Space between the label and the title
   {}
   {\Large}
-\titlespacing*{\subsubsection}{0pt}{30pt}{0pt}
+\titlespacing*{\subsubsection}{0pt}{00pt}{0pt}
 
 \makeatletter
         %% Global
