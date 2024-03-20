@@ -53,5 +53,6 @@
     "ltex.checkFrequency": "save",
     "ltex.completionEnabled": true,
     "files.trimTrailingWhitespace": true,
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.debug.settings.onBuildFailureProceed": true
 }

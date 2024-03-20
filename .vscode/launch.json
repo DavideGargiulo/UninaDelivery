@@ -3,6 +3,19 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main"
+        },
+        {
+            "type": "java",
+            "name": "Warehouse$Main",
+            "request": "launch",
+            "mainClass": "Warehouse$Main",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "com.example/com.example.App",
