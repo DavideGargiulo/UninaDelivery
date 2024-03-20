@@ -22,6 +22,15 @@
 \RequirePackage{adjustbox}                                                                    % Package for adjusting the size of the content
 \RequirePackage{enumitem}                                                                     % Package for customizing lists
 \RequirePackage{pdfpages}                                                                     % Package for including PDF pages
+\RequirePackage{tabularx}                                                                     % Package for creating tabular environments
+\RequirePackage{ifthen}                                                                       % Package for conditionals
+\RequirePackage{array}                                                                        % Package for extending the array and tabular environments
+\RequirePackage{colortbl}                                                                     % Package for adding color to tables
+\RequirePackage{xparse}                                                                       % Package for defining commands with many optional arguments
+\RequirePackage{environ}                                                                      % Package for defining environments with many optional arguments
+\RequirePackage{booktabs}                                                                     % Package for enhancing the quality of tables
+\RequirePackage{colortbl}                                                                     % Package for adding color to tables
+\RequirePackage{listings}                                                                     % Package for including source code in the document
 
 \newcommand{\coursename}{Corso}                                                               % Course Name
 \newcommand{\ocoursename}[1]{\renewcommand{\coursename}{#1}}
@@ -155,3 +164,35 @@
         \def\revertpar{\svpar\setlength\parskip{\svparskip}\let\par\svpar}
         \def\noparskip{\leavevmode\setlength\parskip{0pt}\def\par{\svpar\let\par\revertpar}}
 \makeatother
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\definecolor{lightgray}{gray}{0.9}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{ltgray}{rgb}{0.5,0.5,0.5}
+\lstset{%
+  	backgroundcolor=\color{white},
+  	basicstyle=\small,
+  	breakatwhitespace=false,
+  	breaklines=true,
+  	captionpos=b,
+  	commentstyle=\color{dkgreen},
+  	deletekeywords={...},
+  	escapeinside={\%*}{*)},
+  	extendedchars=true,
+  	frame=single,
+  	keepspaces=true,
+  	keywordstyle=\color{blue},
+  	language=SQL,
+  	morekeywords={*,modify,MODIFY,...},
+  	numbers=left,
+  	numbersep=15pt,
+  	numberstyle=\tiny,
+  	rulecolor=\color{ltgray},
+  	showspaces=false,
+  	showstringspaces=false,
+  	showtabs=false,
+  	stepnumber=1,
+  	tabsize=4,
+  	title=\lstname
+}
