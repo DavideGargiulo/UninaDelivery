@@ -1,0 +1,321 @@
+CREATE SCHEMA uninaDelivery;
+ALTER SCHEMA uninaDelivery OWNER TO postgres;
+
+-- Creazione tabella Account
+CREATE TABLE Account (
+        Name VARCHAR(255),
+        Surname VARCHAR(255),
+        Email VARCHAR(255) PRIMARY KEY,
+        Password VARCHAR(255),
+        Birthdate DATE
+    );
+	ALTER TABLE Account
+    ADD CONSTRAINT alfanumName CHECK (Name ~ '^[A-Za-z0-9]+$'),
+    ADD CONSTRAINT alfanumSurname CHECK (Surname ~ '^[A-Za-z0-9]+$'),
+    ADD CONSTRAINT alfanumEmail CHECK (Email ~ '^[A-Za-z0-9@.]+$');
+
+-- Creazione Tabella CourierVehicle 
+CREATE TABLE CourierVehicle (
+        LicensePlate VARCHAR(255) PRIMARY KEY,
+        Model VARCHAR(255),
+        MaxCapacity INT
+    );
+    ALTER TABLE CourierVehicle
+    ADD CONSTRAINT capacityMaxVehicleCheck CHECK (MaxCapacity > 0);
+
+-- Creazione tabella Driver
+CREATE TABLE Driver (
+        DriverId INT PRIMARY KEY,
+        BusinessEmail VARCHAR(255),
+        Email VARCHAR(255),
+        LicensePlate VARCHAR(255),
+        FOREIGN KEY (Email) REFERENCES Account(Email),
+        FOREIGN KEY (LicensePlate) REFERENCES CourierVehicle(LicensePlate)
+    );
+    ALTER TABLE Driver
+    ADD CONSTRAINT alfanumDriverEmail CHECK (BusinessEmail ~ '^[A-Za-z0-9@.]+$');
+
+-- Creazione tabella Operators
+CREATE TABLE Operators (
+        OperatorId INT PRIMARY KEY,
+        BusinessEmail VARCHAR(255),
+        Email VARCHAR(255),
+        FOREIGN KEY (Email) REFERENCES Account(Email)
+    );
+    ALTER TABLE Operators
+    ADD CONSTRAINT alfanumOperatorEmail CHECK (BusinessEmail ~ '^[A-Za-z0-9@.]+$');
+
+-- Creazione tabella Company
+CREATE TABLE Company (
+        VAT VARCHAR(255) PRIMARY KEY,
+        Name VARCHAR(255)
+    );
+
+-- Creazione tabella Shipment
+CREATE TABLE Shipment (
+        ShipmentId INT PRIMARY KEY,
+        ScheduledDate DATE,
+        Price DECIMAL(10, 2),
+        OperatorId INT,
+        FOREIGN KEY (OperatorId) REFERENCES Operators(OperatorId)
+    );
+
+-- Creazione tabella Warehouse
+CREATE TABLE Warehouse (
+        WarehouseId INT PRIMARY KEY,
+        Name VARCHAR(255),
+        MaxCapacity INT,
+        OccupiedSpace INT,
+        VAT VARCHAR(255),
+        ShipmentId INT,
+        FOREIGN KEY (VAT) REFERENCES Company(VAT),
+        FOREIGN KEY (ShipmentId) REFERENCES Shipment(ShipmentId)
+    );
+    ALTER TABLE Warehouse
+    ADD CONSTRAINT capacityMaxCheck CHECK (MaxCapacity > 0),
+    ADD CONSTRAINT occupiedSpaceCheck CHECK (OccupiedSpace >= 0);
+
+-- Creazione tabella Parcel
+CREATE TABLE Parcel (
+        ParcelId INT PRIMARY KEY,
+        Dimension VARCHAR(255),
+        Status VARCHAR(255),
+        Weight DECIMAL(10, 2),
+        ShipmentId INT,
+        FOREIGN KEY (ShipmentId) REFERENCES Shipment(ShipmentId)
+    );
+
+-- Creazione tabella Product
+CREATE TABLE Product (
+        ProductId INT PRIMARY KEY,
+        Name VARCHAR(255),
+        Image VARCHAR(255),
+        Description TEXT,
+        Price DECIMAL(10, 2),
+        CreatedAt DATE,
+        Category VARCHAR(255),
+        IsFragile BOOLEAN
+    );
+    ALTER TABLE Product
+    ADD CONSTRAINT alfanumCategory CHECK (Category ~ '^[A-Za-z0-9]+$'),
+    ADD CONSTRAINT alfanumProductName CHECK (Name ~ '^[A-Za-z0-9]+$'),
+    ADD CONSTRAINT alfanumDescription CHECK (Name ~ '^[A-Za-z0-9]+$'),
+    ADD CONSTRAINT productPriceCheck CHECK (Price > 0);
+
+-- Creazione tabella Orders
+CREATE TABLE Orders (
+        OrderId INT PRIMARY KEY,
+        Price DECIMAL(10, 2),
+        CreatedAt DATE,
+        Quantity INT,
+        Email VARCHAR(255),
+        ProductId INT,
+        FOREIGN KEY (Email) REFERENCES Account(Email)
+    );
+
+-- Creazione tabella Courier
+CREATE TABLE Courier (
+        Name VARCHAR(255) PRIMARY KEY,
+        LicensePlate VARCHAR(255),
+        FOREIGN KEY (LicensePlate) REFERENCES CourierVehicle(LicensePlate)
+    );
+
+-- Creazione tabella SavedAddress
+CREATE TABLE SavedAddress (
+        AddressId INT PRIMARY KEY,
+        City VARCHAR(255),
+        Province VARCHAR(255),
+        ZipCode VARCHAR(255),
+        Street VARCHAR(255),
+        CivicNumber VARCHAR(255),
+        State VARCHAR(255),
+        Name VARCHAR(255),
+        VAT VARCHAR(255),
+        WarehouseId INT,
+        Email VARCHAR(255),
+        FOREIGN KEY (Name) REFERENCES Courier(Name),
+        FOREIGN KEY (VAT) REFERENCES Company(VAT),
+        FOREIGN KEY (WarehouseId) REFERENCES Warehouse(WarehouseId),
+        FOREIGN KEY (Email) REFERENCES Account(Email)
+    );
+
+-- Creazione tabella Stores
+CREATE TABLE Stores (
+        Quantity INT,
+        WarehouseId INT,
+        ProductId INT,
+        FOREIGN KEY (WarehouseId) REFERENCES Warehouse(WarehouseId),
+        FOREIGN KEY (ProductId) REFERENCES Product(ProductId)
+    );
+
+-- Creazione tabella TransportedBy
+CREATE TABLE TransportedBy (
+        ShipmentId INT,
+        Name VARCHAR(255),
+        FOREIGN KEY (ShipmentId) REFERENCES Shipment(ShipmentId),
+        FOREIGN KEY (Name) REFERENCES Courier(Name)
+    );
+
+-- Creazione tabella ShippedTo
+CREATE TABLE ShippedTo (
+        ShipmentId INT,
+        Email VARCHAR(255),
+        FOREIGN KEY (ShipmentId) REFERENCES Shipment(ShipmentId),
+        FOREIGN KEY (Email) REFERENCES Account(Email)
+    );
+
+-- Creazione tabella Includes
+CREATE TABLE Includes (
+        OrderId INT,
+        ProductId INT,
+        FOREIGN KEY (OrderId) REFERENCES Orders(OrderId),
+        FOREIGN KEY (ProductId) REFERENCES Product(ProductId)
+    );
+
+-- Creazione trigger per driver solo maggiorenni
+CREATE OR REPLACE FUNCTION checkAgeBeforeInsertOrUpdateDriver()
+    RETURNS TRIGGER AS $$
+    DECLARE
+        age INT;
+    BEGIN
+        -- Calcola l'età basata sulla data di nascita
+        SELECT EXTRACT(YEAR FROM age(CURRENT_DATE, Birthdate)) INTO age
+        FROM Account WHERE Email = NEW.Email;
+
+        -- Controlla se l'età è inferiore a 18
+        IF age < 18 THEN
+            RAISE EXCEPTION 'Il driver deve avere almeno 18 anni.';
+        END IF;
+
+        RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql;
+
+    CREATE TRIGGER checkBirthdateDriver
+    BEFORE INSERT ON Driver
+    FOR EACH ROW
+    EXECUTE FUNCTION checkAgeBeforeInsertOrUpdateDriver();
+
+-- Creazione trigger per aggiornare la capacità del magazzino
+CREATE OR REPLACE FUNCTION update_warehouse_capacity()
+    RETURNS TRIGGER AS $$
+    BEGIN
+        UPDATE Warehouse
+        SET OccupiedSpace = OccupiedSpace + NEW.Quantity - OLD.Quantity
+        WHERE WarehouseId = NEW.WarehouseId;
+        RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql;
+
+    CREATE TRIGGER updateCapacityAfterUpdate
+    AFTER UPDATE ON Stores
+    FOR EACH ROW EXECUTE FUNCTION update_warehouse_capacity();
+
+-- Creazione funzione per eseguire un ordine
+CREATE OR REPLACE FUNCTION process_new_order(
+        p_order_id INT,
+        p_product_id INT,
+        p_email VARCHAR,
+        p_quantity INT,
+        p_price DECIMAL(10,2),
+        p_created_at DATE
+    )
+    RETURNS VOID AS $$
+    DECLARE
+        available_quantity INT;
+    BEGIN
+        -- Query per ottenere la quantità disponibile del prodotto richiesto dal magazzino.
+        SELECT Quantity INTO available_quantity FROM Stores WHERE ProductId = p_product_id;
+        IF available_quantity < p_quantity THEN
+            RAISE EXCEPTION 'Quantità insufficiente nel magazzino.';
+        END IF;
+
+        -- Inserimento del nuovo ordine nella tabella Orders.
+        INSERT INTO Orders (OrderId, Price, CreatedAt, Quantity, Email, ProductId)
+        VALUES (p_order_id, p_price, p_created_at, p_quantity, p_email, p_product_id);
+
+        -- Aggiornamento della quantità del prodotto nel magazzino
+        UPDATE Stores
+        SET Quantity = Quantity - p_quantity
+        WHERE ProductId = p_product_id;
+    END;
+    $$ LANGUAGE plpgsql;
+
+-- Popolamento tabella Product
+INSERT INTO Product (ProductId, Name, Image, Description, Price, CreatedAt, Category, IsFragile) VALUES
+(1, 'Prodotto1', 'img1.jpg', 'Descrizione Prodotto 1', 10.99, '2023-01-01', 'Elettronica', FALSE),
+(2, 'Prodotto2', 'img2.jpg', 'Descrizione Prodotto 2', 15.50, '2023-02-01', 'Abbigliamento', FALSE),
+(3, 'Prodotto3', 'img3.jpg', 'Descrizione Prodotto 3', 20.00, '2023-03-01', 'Cibo', TRUE);
+
+-- Popolamento tabella Company
+INSERT INTO Company (VAT, Name) VALUES
+('VAT1234', 'Azienda Centrale'),
+('VAT5678', 'Azienda Est'),
+('VAT9012', 'Azienda Ovest');
+
+-- Popolamento tabella Warehouse
+INSERT INTO Warehouse (WarehouseId, Name, MaxCapacity, OccupiedSpace, VAT, ShipmentId) VALUES
+(1, 'Magazzino Centrale', 1000, 200, 'VAT1234', NULL),
+(2, 'Magazzino Est', 800, 150, 'VAT5678', NULL),
+(3, 'Magazzino Ovest', 1200, 300, 'VAT9012', NULL);
+
+-- Popolamento tabella Stores
+INSERT INTO Stores (Quantity, WarehouseId, ProductId) VALUES
+(50, 1, 1),
+(30, 2, 2),
+(70, 3, 3);
+
+-- Test trigger updateCapacityAfterUpdate
+UPDATE Stores SET Quantity = 60 WHERE WarehouseId = 1 AND ProductId = 1;
+
+INSERT INTO Account (Name, Surname, Email, Password, Birthdate) VALUES 
+('Mario', 'Rossi', 'mario.rossi@example.com', 'password123', '1985-01-15'),
+('Luca', 'Bianchi', 'luca.bianchi@example.com', 'mypassword', '1990-07-22'),
+('Giulia', 'Verdi', 'giulia.verdi@example.com', 'giuliapass', '1992-11-30'),
+('Luigi', 'Verdi', 'luigi.verdi@example.com', 'passwordLuigi', '1986-05-12');
+
+-- Popolamento tabella Operators
+INSERT INTO Operators (OperatorId, BusinessEmail, Email) VALUES
+(1, 'business1@company.com', 'mario.rossi@example.com'),
+(2, 'business2@company.com', 'luigi.verdi@example.com');
+
+-- Popolamento tabella Shipment
+INSERT INTO Shipment (ShipmentId, ScheduledDate, Price, OperatorId) VALUES
+(1, '2024-02-20', 100.00, 1),
+(2, '2024-02-21', 150.00, 2);
+
+-- Popolamento tabella Parcel
+INSERT INTO Parcel (ParcelId, Dimension, Status, Weight, ShipmentId) VALUES
+(1, '50x40x30', 'In Transito', 10.00, 1),
+(2, '30x20x15', 'In Transito', 5.00, 1),
+(3, '60x45x35', 'Consegnato', 12.00, 2);
+
+-- Popolamento tabella Account per testare trigger driver
+INSERT INTO Account (Name, Surname, Email, Password, Birthdate) VALUES
+('Marianna', 'Giovanna', 'marianna.giovanna@email.com', 'password123', '2014-01-01'),  -- Minorenne
+('Maria', 'Bianchi', 'maria.bianchi@email.com', 'password456', '1990-06-15');  -- Maggiorenne
+
+-- Popolamento tabella CourierVehicle per testare trigger driver
+INSERT INTO CourierVehicle (LicensePlate, Model, MaxCapacity) VALUES
+('AB123CD', 'Modello1', 1000),
+('CD456EF', 'Modello2', 1500),
+('GH789IJ', 'Modello3', 1200);
+
+-- Test trigger con minorenne
+INSERT INTO Driver (DriverId, BusinessEmail, Email, LicensePlate) VALUES
+(1, 'business@email.com', 'marianna.giovanna@email.com', 'AB123CD');
+
+-- Test trigger con maggiorenne
+INSERT INTO Driver (DriverId, BusinessEmail, Email, LicensePlate) VALUES
+(2, 'business2@email.com', 'maria.bianchi@email.com', 'CD456EF');
+
+-- Popolamento tabella Account test funzione nuovo ordine
+INSERT INTO Account (Name, Surname, Email, Password, Birthdate) VALUES
+('Luca', 'Bianchi', 'luca.bianchi@email.com', 'password456', '1990-05-21'),
+('Giulia', 'Verdi', 'giulia.verdi@email.com', 'password789', '1992-11-30'),
+('Sara', 'Neri', 'sara.neri@email.com', 'password012', '1988-03-25');
+
+-- Test funzione nuovo ordine
+SELECT process_new_order(1, 1, 'luca.bianchi@email.com', 5, 10.99, '2023-01-01');
+SELECT process_new_order(2, 1, 'luca.bianchi@email.com', 5, 10.99, '2023-01-01');
+Select * from orders
