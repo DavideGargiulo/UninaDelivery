@@ -1,1 +1,162 @@
 \section{Progettazione Logica}
+
+\subsection{Traduzione delle Associazioni}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Associazione} & \textbf{Traduzione} \\
+    \midrule
+    places & Migrazione della chiave primaria di \textbf{Account} in \textbf{Orders} \\
+    contains & Migrazione della chiave primaria di \textbf{Product} in \textbf{Orders} \\
+    drives & Migrazione della chiave primaria di \textbf{CourierVehicle} in \textbf{Driver} \\
+    transportedBy & Creazione di una nuova tabella TransportedBy con migrazioni delle chiavi primarie di \textbf{Shipment} e \textbf{Courier} \\
+    manages & Migrazione della chiave primaria di \textbf{CourierVehicle} in \textbf{Courier} \\
+    located & Migrazione della chiave primaria di \textbf{Courier} in \textbf{SavedAddress} \\
+    works & Migrazione della chiave primaria di \textbf{Courier} in \textbf{Driver} \\
+    shipmentIncludes & Migrazione della chiave primaria di \textbf{Shipment} in \textbf{Parcel} \\
+    is & Migrazione della chiave primaria di \textbf{Account} in Operator \\
+    is & Migrazione della chiave primaria di \textbf{Account} in \textbf{Driver} \\
+    shippedTo & Creazione di una nuova tabella ShippedTo con migrazioni delle chiavi primarie di \textbf{Shipment} e \textbf{Account} \\
+    makes & Migrazione della chiave primaria di \textbf{Operator} in \textbf{Shipment} \\
+    sited & Migrazione della chiave primaria di \textbf{Company} in \textbf{SavedAddress} \\
+    owns & Migrazione della chiave primaria di \textbf{Company} in \textbf{Warehouse} \\
+    situated & Migrazione della chiave primaria di \textbf{Warehouse} in \textbf{SavedAddress} \\
+    registers & Migrazione della chiave primaria di \textbf{Account} in \textbf{SavedAddress} \\
+    stores & Creazione di una nuova tabella Stores con migrazioni delle chiavi primarie di \textbf{Warehouse} e \textbf{Product} \\
+    includes & Creazione di una nuova tabella Includes con migrazioni delle chiavi primarie di \textbf{Product} e \textbf{Orders} \\
+    orderIncludes & Creazione di una nuova tabella OrderIncludes con migrazioni delle chiavi primarie di \textbf{Orders} e \textbf{Shipment} \\
+    shippedFrom & Migrazione della chiave primaria di \textbf{Shipment} in \textbf{Warehouse} \\
+    \bottomrule
+\end{tabularx}
+
+\newpage
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Account} \\
+    \midrule
+    Name, Surname, \underline{Email}, Password, Birthdate \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{CourierVehicle} \\
+    \midrule
+    \underline{LicensePlate}, Model, MaxCapacity  \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Driver} \\
+    \midrule
+    \underline{DriverId}, BusinessEmail, \textit{Email}, \textit{LicensePlate} \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Orders} \\
+    \midrule
+    \underline{OrderId}, Price, CreatedAt, Quantity, \textit{Email} \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Operators} \\
+    \midrule
+    \underline{OperatorId}, BusinessEmail, \textit{Email} \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Shipment} \\
+    \midrule
+    \underline{ShipmentId}, ScheduledDate, Price, \textit{OperatorId}  \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Parcel} \\
+    \midrule
+    \underline{ParcelId}, Dimention, Status, Weight, \textit{ShipmentId}  \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Company} \\
+    \midrule
+    \underline{VAT}, Name  \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Warehouse} \\
+    \midrule
+    \underline{WarehouseId}, Name, MaxCapacity, OccupiedSpace, \textit{VAT}, \textit{ShipmentId} \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{SavedAddress} \\
+    \midrule
+    \underline{AddressId}, City, Province, ZipCode, Street, CivicNumber, State, \textit{Name}, \textit{VAT}, \textit{WarehouseId}, \textit{Email}  \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Product} \\
+    \midrule
+    \underline{ProductId}, Name, Image, Description, Price, CreatedAt, Category, IsFragile \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Stores} \\
+    \midrule
+    Quantity, \textit{WarehouseId}, \textit{ProductId} \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{Courier} \\
+    \midrule
+    \underline{Name}, \textit{LicensePlate}  \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{TransportedBy} \\
+    \midrule
+    \textit{ShipmentId}, \textit{Name} \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{ShippedTo} \\
+    \midrule
+    \textit{ShipmentId}, \textit{Email} \\
+    \bottomrule
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{YY}
+    \toprule
+    \textbf{includes} \\
+    \midrule
+    \textit{OrderId}, \textit{ProductId} \\
+    \bottomrule
+\end{tabularx}
+
+\newpage
