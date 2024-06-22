@@ -3,16 +3,16 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Main",
+            "name": "App",
             "request": "launch",
-            "mainClass": "Main"
+            "mainClass": "com.example/com.example.App",
+            "projectName": "UninaDelivery"
         },
         {
             "type": "java",
-            "name": "Warehouse$Main",
+            "name": "Main",
             "request": "launch",
-            "mainClass": "Warehouse$Main",
-            "projectName": ""
+            "mainClass": "Main"
         },
         {
             "type": "java",
