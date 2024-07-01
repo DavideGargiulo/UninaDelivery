@@ -1,39 +1,13 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "com.example/com.example.App",
-            "projectName": "UninaDelivery"
-        },
-        {
-            "type": "java",
-            "name": "Main",
-            "request": "launch",
-            "mainClass": "Main"
-        },
-        {
-            "type": "java",
-            "name": "App",
-            "request": "launch",
-            "mainClass": "com.example/com.example.App",
-            "projectName": "demo"
-        },
-        {
-            "type": "java",
-            "name": "main",
-            "request": "launch",
-            "mainClass": "com.example.main",
-            "projectName": "UninaDelivery"
-        },
-        {
-            "type": "java",
-            "name": "Debug (Launch)",
-            "request": "launch",
-            "mainClass": "com.example",
-            "vmArgs": "--module-path C:\\Program Files\\javafx-sdk-21.0.1\\lib --add-modules javafx.controls,javafx.fxml"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+      {
+        "type": "java",
+        "name": "Launch App",
+        "request": "launch",
+        "mainClass": "com.unina.oobd2324gr18.control.App",
+        "projectName": "UninaDelivery",
+        "vmArgs": "--module-path /home/davideh/Programs/javafx-sdk-23/lib --add-modules javafx.controls,javafx.fxml"
+      }
+  ]
 }
