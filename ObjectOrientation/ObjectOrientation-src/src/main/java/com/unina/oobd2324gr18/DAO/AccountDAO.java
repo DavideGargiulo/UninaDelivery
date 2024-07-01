@@ -1,0 +1,5 @@
+package com.unina.oobd2324gr18.DAO;
+
+public class AccountDAO {
+
+}
