@@ -1,0 +1,91 @@
+@import "../../fonts/Fonts.css";
+@import "colors.css";
+
+.mfx-text-field {
+  -mfx-main: -mfx-red;
+  background-color: rgb(66, 34, 34);
+  -fx-background-color: transparent;
+  -fx-background-radius: 5;
+  border-color: lightgray;
+  -fx-border-color: lightgray;
+  border-radius: 5px;
+  -fx-border-radius: 5px;
+  padding: 5px;
+  -fx-padding: 5px;
+  font-family: "Open Sans Regular";
+  -fx-font-family: "Open Sans Regular";
+}
+
+.mfx-text-field:readonly,
+.mfx-text-field:readonly .text-field {
+  cursor: default;
+  -fx-cursor: default;
+}
+
+.mfx-text-field .text-field {
+  /* Selected text highlight */
+  -fx-highlight-fill: #ECE0FD;
+  /* Prompt text color */
+  -fx-prompt-text-fill: -mfx-text-me;
+}
+
+.mfx-text-field .text-field .text {
+  -fx-font-smoothing-type: lcd;
+}
+
+.mfx-text-field:focus-within {
+  -fx-background-insets: 2px;
+  border-color: -mfx-main;
+  -fx-border-color: -mfx-main;
+  border-width: 1.5px;
+  -fx-border-width: 1.5px;
+  -fx-border-insets: -0.5px;
+}
+
+.mfx-text-field .floating-text {
+  font-family: "Open Sans Regular";
+  -fx-font-family: "Open Sans Regular";
+  -fx-text-fill: -mfx-text-he;
+}
+
+.mfx-text-field:floating .floating-text {
+  background-color: white;
+  -fx-background-color: white;
+}
+
+.mfx-text-field:focus-within .floating-text {
+  -fx-text-fill: -mfx-main;
+}
+
+.mfx-text-field .measure-unit {
+  font-family: "Open Sans Regular";
+  -fx-font-family: "Open Sans Regular";
+  -fx-text-fill: -mfx-text-he;
+}
+
+.mfx-text-field .text-field {
+  -fx-text-box-border: transparent;
+  background-color: transparent;
+  -fx-background-color: transparent;
+  -fx-backrgound-insets: 0px;
+  padding: 0px;
+  -fx-padding: 0px;
+}
+
+.mfx-text-field .text-field:focused {
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
+}
+
+.mfx-text-field:disabled {
+  border-color: rgba(0, 0, 0, 0.1);
+  -fx-border-color: rgba(0, 0, 0, 0.1);
+}
+
+.mfx-text-field:disabled .floating-text {
+  -fx-text-fill: -mfx-text-disabled;
+}
+
+.mfx-text-field:disabled .text-field {
+  -fx-text-inner-color: -mfx-text-disabled;
+}
