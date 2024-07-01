@@ -17,10 +17,8 @@
 *.fls
 *.fdb_latexmk
 *.class
-**/target/
+/target
 
 # Scripts
 *.bat
 launch.json
-/ObjectOrientation/ObjectOrientation-src/target/
-/target/
