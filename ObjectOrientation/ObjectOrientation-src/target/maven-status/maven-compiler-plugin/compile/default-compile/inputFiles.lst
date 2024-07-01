@@ -1,4 +1,7 @@
-C:\Users\david\Desktop\UninaDelivery\ObjectOrientation\ObjectOrientation-src\src\main\java\module-info.java
-C:\Users\david\Desktop\UninaDelivery\ObjectOrientation\ObjectOrientation-src\src\main\java\com\example\SecondaryController.java
-C:\Users\david\Desktop\UninaDelivery\ObjectOrientation\ObjectOrientation-src\src\main\java\com\example\PrimaryController.java
-C:\Users\david\Desktop\UninaDelivery\ObjectOrientation\ObjectOrientation-src\src\main\java\com\example\App.java
+/home/davideh/Unina/UninaDelivery/ObjectOrientation/ObjectOrientation-src/src/main/java/com/unina/oobd2324gr18/control/package-info.java
+/home/davideh/Unina/UninaDelivery/ObjectOrientation/ObjectOrientation-src/src/main/java/com/unina/oobd2324gr18/control/BasicControl.java
+/home/davideh/Unina/UninaDelivery/ObjectOrientation/ObjectOrientation-src/src/main/java/com/unina/oobd2324gr18/control/LoginControl.java
+/home/davideh/Unina/UninaDelivery/ObjectOrientation/ObjectOrientation-src/src/main/java/com/unina/oobd2324gr18/control/App.java
+/home/davideh/Unina/UninaDelivery/ObjectOrientation/ObjectOrientation-src/src/main/java/com/unina/oobd2324gr18/boundary/BasePageController.java
+/home/davideh/Unina/UninaDelivery/ObjectOrientation/ObjectOrientation-src/src/main/java/com/unina/oobd2324gr18/Main.java
+/home/davideh/Unina/UninaDelivery/ObjectOrientation/ObjectOrientation-src/src/main/java/com/unina/oobd2324gr18/package-info.java
