@@ -27,10 +27,10 @@ public class AccountDTO {
   private LocalDate birthDate;
 
   // Indirizzo salvato dell'account
-  private savedAddress address;
+  private SavedAddressDTO address;
 
   // Lista degli ordini associati all'account
-  private List<Order> orders = new ArrayList<>();
+  private List<OrderDTO> orders = new ArrayList<>();
 
   // Totale denaro speso dall'account
   private double moneySpent;
@@ -45,7 +45,7 @@ public class AccountDTO {
    * @param birthDate Data di nascita dell'account
    * @param address Indirizzo salvato dell'account
    */
-  public AccountDTO(final String name, final String surname, final String email, final String password, final LocalDate birthDate, final savedAddress address) {
+  public AccountDTO(final String name, final String surname, final String email, final String password, final LocalDate birthDate, final SavedAddressDTO address) {
     this.name = name;
     this.surname = surname;
     this.email = email;
@@ -105,22 +105,22 @@ public class AccountDTO {
   }
 
   // Getter per l'indirizzo
-  public savedAddress getAddress() {
+  public SavedAddressDTO getAddress() {
     return address;
   }
 
   // Setter per l'indirizzo
-  public void setAddress(final savedAddress address) {
+  public void setAddress(final SavedAddressDTO address) {
     this.address = address;
   }
 
   // Getter per gli ordini
-  public List<Order> getOrders() {
+  public List<OrderDTO> getOrders() {
     return orders;
   }
 
   // Setter per gli ordini
-  public void setOrders(final List<Order> orders) {
+  public void setOrders(final List<OrderDTO> orders) {
     this.orders = orders;
   }
 
