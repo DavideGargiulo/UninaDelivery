@@ -89,3 +89,27 @@
 .mfx-text-field:disabled .text-field {
   -fx-text-inner-color: -mfx-text-disabled;
 }
+
+#validatedField {
+	-mfx-hide-character: '*';
+}
+
+#validatedField:invalid {
+	-fx-border-color: -mfx-red;
+}
+
+#validatedField:invalid .floating-text {
+	-fx-text-fill: -mfx-red;
+}
+
+#validatedField:invalid .mfx-font-icon {
+  color: -mfx-red;
+	-mfx-color: -mfx-red;
+}
+
+#validationLabel {
+  font-family: 'Open Sans SemiBold';
+	-fx-font-family: 'Open Sans SemiBold';
+  font-size: 11;
+	-fx-font-size: 11;
+}
