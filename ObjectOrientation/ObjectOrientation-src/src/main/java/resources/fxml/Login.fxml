@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -13,14 +20,28 @@
             <AnchorPane>
                 <children>
                     <Circle fill="#e5ad93" layoutX="425.0" layoutY="360.0" nodeOrientation="LEFT_TO_RIGHT" radius="147.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                  <ImageView fitHeight="368.0" fitWidth="828.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="59.0" fitWidth="133.0" layoutX="359.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/logoBlu.png" />
+                        <Image url="@../images/logo.png" />
                      </image>
                   </ImageView>
                 </children>
             </AnchorPane>
          </items>
       </SplitPane>
+      <ImageView fitHeight="71.0" fitWidth="71.0" layoutX="1017.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/coolThing.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="914.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accedi al tuo account">
+         <font>
+            <Font name="Comfortaa Bold" size="24.0" />
+         </font>
+      </Text>
+      <MFXPasswordField id="validatedField" fx:id="passwordField" floatingText="Password" layoutX="914.0" layoutY="360.0" maxWidth="275.0" prefHeight="51.0" prefWidth="275.0" stylesheets="@../styles/components/textfield.css" />
+      <Label id="validationLabel" fx:id="validationLabel" maxWidth="1.7976931348623157E308" minHeight="-Infinity" textFill="#ef6e6b" visible="false" wrapText="true" />
+      <MFXTextField id="customField" floatingText="Email" layoutX="914.0" layoutY="298.0" prefHeight="51.0" prefWidth="275.0" stylesheets="@../styles/components/textfield.css" />
+      <MFXButton id="customButton" layoutX="976.0" layoutY="423.0" minHeight="27.0" minWidth="70.0" prefHeight="30.0" prefWidth="153.0" stylesheets="@../styles/components/button.css" text="Accedi" GridPane.columnIndex="1" GridPane.rowIndex="1" />
    </children>
 </AnchorPane>
