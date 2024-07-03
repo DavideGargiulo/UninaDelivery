@@ -1,6 +1,6 @@
 package com.unina.oobd2324gr18.control;
 
-import com.unina.oobd2324gr22.entity.DAO.AccountDAO;
+import com.unina.oobd2324gr18.DAO.AccountDAO;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 import javafx.scene.control.Alert;
@@ -19,7 +19,7 @@ public final class LoginControl extends BasicControl {
   protected static final double WINDOW_HEIGHT = 400;
 
   // DAO per l'accesso ai dati dell'account.
-  private AccountDAO accountDAO = new AccountDAOPostgres();
+  // private AccountDAO accountDAO = new AccountDAOPostgres();
 
   // Istanza singleton di LoginControl.
   private static LoginControl instance;
@@ -52,21 +52,21 @@ public final class LoginControl extends BasicControl {
    * @param email L'email fornita dall'utente.
    * @param password La password fornita dall'utente.
    */
-  public void authenticate(final String email, final String password) {
-    if (!areCredentialsValid(email, password)) return;
+  // public void authenticate(final String email, final String password) {
+  //   if (!areCredentialsValid(email, password)) return;
 
-    try {
-      Operator operator = accountDAO.getOperatorByEmailAndPassword(email, SHA256.toSHA256(password));
-      if (operator != null) {
-        Session.loginOperator(operator);
-        DashboardControl.getInstance().setScene();
-      } else {
-        displayLoginError("Incorrect email or password.");
-      }
-    } catch (SQLException e) {
-      displayInternalError(e);
-    }
-  }
+  //   try {
+  //     Operator operator = accountDAO.getOperatorByEmailAndPassword(email, SHA256.toSHA256(password));
+  //     if (operator != null) {
+  //       Session.loginOperator(operator);
+  //       DashboardControl.getInstance().setScene();
+  //     } else {
+  //       displayLoginError("Incorrect email or password.");
+  //     }
+  //   } catch (SQLException e) {
+  //     displayInternalError(e);
+  //   }
+  // }
 
   /**
    * Verifica se le credenziali fornite sono valide.
@@ -76,33 +76,33 @@ public final class LoginControl extends BasicControl {
    * @param password La password fornita.
    * @return true se le credenziali sono valide, altrimenti false.
    */
-  private boolean areCredentialsValid(final String email, final String password) {
-    if (email.isBlank() || password.isBlank()) {
-      displayLoginError("Please enter both email and password.");
-      return false;
-    }
+  // private boolean areCredentialsValid(final String email, final String password) {
+  //   if (email.isBlank() || password.isBlank()) {
+  //     displayLoginError("Please enter both email and password.");
+  //     return false;
+  //   }
 
-    if (!validateEmail(email)) {
-      displayLoginError("Invalid email format.");
-      return false;
-    }
+  //   if (!validateEmail(email)) {
+  //     displayLoginError("Invalid email format.");
+  //     return false;
+  //   }
 
-    if (!checkOperatorEmail(email)) {
-      displayLoginError("Only operator accounts are allowed.");
-      return false;
-    }
+  //   if (!checkOperatorEmail(email)) {
+  //     displayLoginError("Only operator accounts are allowed.");
+  //     return false;
+  //   }
 
-    return true;
-  }
+  //   return true;
+  // }
 
   /**
    * Mostra un messaggio di errore di login.
    *
    * @param message Il messaggio di errore da visualizzare.
    */
-  private void displayLoginError(final String message) {
-    showAlert(Alert.AlertType.ERROR, "Login Error", "Authentication Failed", message);
-  }
+  // private void displayLoginError(final String message) {
+  //   showAlert(Alert.AlertType.ERROR, "Login Error", "Authentication Failed", message);
+  // }
 
   /**
    * Valida l'email secondo un'espressione regolare.
@@ -110,9 +110,9 @@ public final class LoginControl extends BasicControl {
    * @param email L'email da validare.
    * @return true se l'email è valida, altrimenti false.
    */
-  private boolean validateEmail(final String email) {
-    return Pattern.matches("^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$", email);
-  }
+  // private boolean validateEmail(final String email) {
+  //   return Pattern.matches("^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$", email);
+  // }
 
   /**
    * Controlla se l'email appartiene a un operatore.
@@ -120,7 +120,7 @@ public final class LoginControl extends BasicControl {
    * @param email L'email da controllare.
    * @return true se l'email appartiene a un operatore, altrimenti false.
    */
-  private boolean checkOperatorEmail(final String email) {
-    return Pattern.matches("^[a-zA-Z]\\.([a-zA-Z]+\\_[A-Za-z]+|[A-Za-z]+)[0-9]*@uninadelivery\\.operator\\.com$", email);
-  }
+  // private boolean checkOperatorEmail(final String email) {
+  //   return Pattern.matches("^[a-zA-Z]\\.([a-zA-Z]+\\_[A-Za-z]+|[A-Za-z]+)[0-9]*@uninadelivery\\.operator\\.com$", email);
+  // }
 }

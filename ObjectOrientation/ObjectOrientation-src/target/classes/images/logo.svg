@@ -1,0 +1,37 @@
+<svg width="721" height="321" viewBox="0 0 721 321" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="221" cy="265" r="50" stroke="black" stroke-width="11"/>
+<circle cx="499" cy="265" r="50" stroke="black" stroke-width="11"/>
+<circle cx="220.5" cy="264.5" r="21.5" fill="black"/>
+<circle cx="498.5" cy="264.5" r="21.5" fill="black"/>
+<line x1="3.5" y1="285.5" x2="153.5" y2="285.5" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<line x1="288.5" y1="257.5" x2="430.5" y2="257.5" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<line x1="351.5" y1="53.5" x2="486.5" y2="53.5" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<line x1="392.5" y1="55.5" x2="392.5" y2="252.5" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<path d="M351 4V174" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M137 174L351 174" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M351 4L221 4" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M221 174L221 4" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M162 46L215 46" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M190 46L190 96" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M223 132H273" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M244 110L244 132" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M178 98L178 174" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M78 136H118" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<path d="M95 158L119 158" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<path d="M82 182L118 182" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<path d="M274 110L274 174" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M274 110L143 110" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M216 95.9984L137 96.0034" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M137 257L137 96" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M138 257H152" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<path d="M162 46L162 96" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M294 40L294 4" stroke="black" stroke-width="7" stroke-linecap="square"/>
+<path d="M297 40L338 6" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<line x1="599.5" y1="184.5" x2="599.5" y2="257.5" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<line x1="567.5" y1="257.5" x2="599.5" y2="257.5" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<line x1="567.5" y1="285.5" x2="717.5" y2="285.5" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<line x1="487.934" y1="53.3916" x2="599.392" y2="184.066" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<line x1="413.5" y1="143.5" x2="533.5" y2="143.5" stroke="black" stroke-width="7" stroke-linecap="round"/>
+<line x1="413.5" y1="170.5" x2="439.5" y2="170.5" stroke="black" stroke-width="7" stroke-linecap="round"/>
+</svg>
+
