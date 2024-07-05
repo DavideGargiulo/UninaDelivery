@@ -8,12 +8,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unina.oobd2324gr18.boundary.LoginController">
    <children>
       <SplitPane layoutX="-1.0" prefHeight="720.0" prefWidth="850.0" style="-fx-background-color: FFE6C9;">
          <items>
@@ -39,9 +38,9 @@
             <Font name="Comfortaa Bold" size="24.0" />
          </font>
       </Text>
-      <MFXPasswordField id="validatedField" fx:id="passwordField" floatingText="Password" layoutX="914.0" layoutY="360.0" maxWidth="275.0" prefHeight="51.0" prefWidth="275.0" stylesheets="@../styles/components/textfield.css" />
+      <MFXPasswordField id="passwordTextField" fx:id="passwordTextField" floatingText="Password" layoutX="914.0" layoutY="360.0" maxWidth="275.0" prefHeight="51.0" prefWidth="275.0" stylesheets="@../styles/components/textfield.css" />
       <Label id="validationLabel" fx:id="validationLabel" maxWidth="1.7976931348623157E308" minHeight="-Infinity" textFill="#ef6e6b" visible="false" wrapText="true" />
-      <MFXTextField id="customField" floatingText="Email" layoutX="914.0" layoutY="298.0" prefHeight="51.0" prefWidth="275.0" stylesheets="@../styles/components/textfield.css" />
-      <MFXButton id="customButton" layoutX="976.0" layoutY="423.0" minHeight="27.0" minWidth="70.0" prefHeight="30.0" prefWidth="153.0" stylesheets="@../styles/components/button.css" text="Accedi" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <MFXTextField id="emailTextField" fx:id="emailTextField" floatingText="Email" layoutX="914.0" layoutY="298.0" prefHeight="51.0" prefWidth="275.0" stylesheets="@../styles/components/textfield.css" />
+      <MFXButton id="loginButton" fx:id="loginButton" layoutX="976.0" layoutY="423.0" minHeight="27.0" minWidth="70.0" prefHeight="30.0" prefWidth="153.0" stylesheets="@../styles/components/button.css" text="Accedi" />
    </children>
 </AnchorPane>
