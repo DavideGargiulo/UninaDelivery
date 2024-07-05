@@ -7,30 +7,39 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class App extends Application {
 
   private static Stage stage;
 
-  public static void launchApp(final String[] args) {
-    Application.launch(args);
+  @Override
+  public void start(final Stage primaryStage) throws Exception {
+    LoginControl loginControl = LoginControl.getInstance();
+    stage = primaryStage;
+    primaryStage.initStyle(StageStyle.UNDECORATED);
+    primaryStage.setTitle("UninaDelivery");
+    primaryStage.getIcons();
+
+    loginControl.setScene();
   }
 
-  @Override
-  public void start(Stage primaryStage) throws Exception {
-    FXMLLoader loader = new FXMLLoader();
-    stage = primaryStage;
-    loader.setLocation(getClass().getResource("/fxml/Login.fxml"));
-    Parent root = loader.load();
-    Scene scene = new Scene(root, 1280, 720);
-
-    primaryStage.setScene(scene);
-    primaryStage.setTitle("Fixed Size Window Application");
-    primaryStage.setResizable(false);
-    primaryStage.show();
+  public static void launchApp(final String[] args) {
+    launch(args);
   }
 
   public static Stage getStage() {
     return stage;
+  }
+
+  public static void switchScene(final double width, final double height, final Scene scene) {
+    setStageSizes(width, height);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  public static void setStageSizes(final double width, final double height) {
+    stage.setWidth(width);
+    stage.setHeight(height);
   }
 }

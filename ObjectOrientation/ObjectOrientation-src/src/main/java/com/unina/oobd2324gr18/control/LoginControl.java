@@ -1,43 +1,30 @@
 package com.unina.oobd2324gr18.control;
 
 import com.unina.oobd2324gr18.DAO.AccountDAO;
+import com.unina.oobd2324gr18.DAO.AccountDAOPostgresql;
+import com.unina.oobd2324gr18.DTO.OperatorDTO;
+import com.unina.oobd2324gr18.utils.SHA512;
+import javafx.scene.control.Alert;
+
 import java.sql.SQLException;
 import java.util.regex.Pattern;
-import javafx.scene.control.Alert;
 
 /**
  * Gestisce il processo di login per l'applicazione.
  * Estende {@link BasicControl} per utilizzare funzionalità comuni di controllo dell'interfaccia utente.
  * Implementa il pattern Singleton per assicurarsi che esista una sola istanza di questa classe.
  *
+ *
  * @author DavideGargiulo
  */
 public final class LoginControl extends BasicControl {
-
-  // Dimensioni predefinite della finestra di login.
-  protected static final double WINDOW_WIDTH = 600;
-  protected static final double WINDOW_HEIGHT = 400;
-
-  // DAO per l'accesso ai dati dell'account.
-  // private AccountDAO accountDAO = new AccountDAOPostgres();
-
-  // Istanza singleton di LoginControl.
   private static LoginControl instance;
+  private AccountDAO accountDAO = new AccountDAOPostgresql();
 
-  /**
-   * Costruttore privato per prevenire l'istanziazione diretta.
-   * Chiama il costruttore della superclasse con il nome della pagina.
-   */
   private LoginControl() {
     super("LoginPage");
   }
 
-  /**
-   * Fornisce l'accesso all'istanza singleton di LoginControl.
-   * Se l'istanza non esiste, ne crea una nuova.
-   *
-   * @return L'istanza singleton di LoginControl.
-   */
   public static LoginControl getInstance() {
     if (instance == null) {
       instance = new LoginControl();
@@ -46,81 +33,74 @@ public final class LoginControl extends BasicControl {
   }
 
   /**
-   * Tenta di autenticare l'utente con le credenziali fornite.
-   * Se le credenziali sono valide e corrispondono a un operatore, procede al login.
+   * Attempts to log in a user with the given username and password.
    *
-   * @param email L'email fornita dall'utente.
-   * @param password La password fornita dall'utente.
+   * @param username the username of the user
+   * @param password the password of the user
+   * @return an OperatorDTO if the login is successful, null otherwise
    */
-  // public void authenticate(final String email, final String password) {
-  //   if (!areCredentialsValid(email, password)) return;
+  public OperatorDTO login(String username, String password) {
+    if (!isValidInput(username, password)) {
+      showAlert("Input Validation Error", "Username or password is invalid.");
+      return null;
+    }
 
-  //   try {
-  //     Operator operator = accountDAO.getOperatorByEmailAndPassword(email, SHA256.toSHA256(password));
-  //     if (operator != null) {
-  //       Session.loginOperator(operator);
-  //       DashboardControl.getInstance().setScene();
-  //     } else {
-  //       displayLoginError("Incorrect email or password.");
-  //     }
-  //   } catch (SQLException e) {
-  //     displayInternalError(e);
-  //   }
-  // }
+    String hashedPassword = SHA512.getSecurePassword(password, null);
+
+    try {
+      OperatorDTO operator = accountDAO.findOperatorByBusinessemailNPassword(username, hashedPassword);
+      if (operator == null) {
+        showAlert("Login Failed", "Invalid username or password.");
+        return null;
+      }
+      return operator;
+    } catch (SQLException e) {
+      showAlert("Database Error", "An error occurred while accessing the database.");
+      e.printStackTrace();
+      return null;
+    }
+  }
 
   /**
-   * Verifica se le credenziali fornite sono valide.
-   * Controlla che email e password non siano vuote, che l'email sia nel formato corretto e che sia un'email di operatore.
+   * Validates the input for username and password.
    *
-   * @param email L'email fornita.
-   * @param password La password fornita.
-   * @return true se le credenziali sono valide, altrimenti false.
+   * @param username the username to validate
+   * @param password the password to validate
+   * @return true if both username and password are valid, false otherwise
    */
-  // private boolean areCredentialsValid(final String email, final String password) {
-  //   if (email.isBlank() || password.isBlank()) {
-  //     displayLoginError("Please enter both email and password.");
-  //     return false;
-  //   }
+  private boolean isValidInput(String username, String password) {
+    if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+      return false;
+    }
 
-  //   if (!validateEmail(email)) {
-  //     displayLoginError("Invalid email format.");
-  //     return false;
-  //   }
+    // Minimum length validation
+    if (username.length() < 5 || password.length() < 8) {
+      return false;
+    }
 
-  //   if (!checkOperatorEmail(email)) {
-  //     displayLoginError("Only operator accounts are allowed.");
-  //     return false;
-  //   }
+    // Regex pattern for allowed characters in username (e.g., alphanumeric characters only)
+    if (!username.matches("^[a-zA-Z0-9]+$")) {
+      return false;
+    }
 
-  //   return true;
-  // }
+    // Additional password strength criteria, e.g., at least one number, one letter, and one special character
+    if (!password.matches("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}$")) {
+      return false;
+    }
+
+    return true;
+  }
 
   /**
-   * Mostra un messaggio di errore di login.
+   * Displays an alert with the given title and message.
    *
-   * @param message Il messaggio di errore da visualizzare.
+   * @param title   the title of the alert
+   * @param message the message of the alert
    */
-  // private void displayLoginError(final String message) {
-  //   showAlert(Alert.AlertType.ERROR, "Login Error", "Authentication Failed", message);
-  // }
-
-  /**
-   * Valida l'email secondo un'espressione regolare.
-   *
-   * @param email L'email da validare.
-   * @return true se l'email è valida, altrimenti false.
-   */
-  // private boolean validateEmail(final String email) {
-  //   return Pattern.matches("^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$", email);
-  // }
-
-  /**
-   * Controlla se l'email appartiene a un operatore.
-   *
-   * @param email L'email da controllare.
-   * @return true se l'email appartiene a un operatore, altrimenti false.
-   */
-  // private boolean checkOperatorEmail(final String email) {
-  //   return Pattern.matches("^[a-zA-Z]\\.([a-zA-Z]+\\_[A-Za-z]+|[A-Za-z]+)[0-9]*@uninadelivery\\.operator\\.com$", email);
-  // }
+  private void showAlert(String title, String message) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle(title);
+    alert.setContentText(message);
+    alert.showAndWait();
+  }
 }
