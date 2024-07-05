@@ -26,7 +26,7 @@ public final class DatabaseConnectionDAO {
     return dbconn;
   }
 
-  static Connection getConnectionBySchema(final String schema) throws IOException, ClassNotFoundException {
+  static Connection getConnectionBySchema(final String schema) {
     String password = null;
     BufferedReader buffer = null;
 
@@ -47,7 +47,23 @@ public final class DatabaseConnectionDAO {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      throw new RuntimeException("File password.txt not found", e);
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } finally {
+      if (buffer != null) {
+        try {
+          buffer.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
     }
     return conn;
   }
+
 }
