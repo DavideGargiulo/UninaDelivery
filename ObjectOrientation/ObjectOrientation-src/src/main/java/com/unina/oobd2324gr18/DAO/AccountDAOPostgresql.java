@@ -4,68 +4,50 @@ import com.unina.oobd2324gr18.DTO.AccountDTO;
 import com.unina.oobd2324gr18.DTO.DriverDTO;
 import com.unina.oobd2324gr18.DTO.OperatorDTO;
 import com.unina.oobd2324gr18.DTO.WarehouseDTO;
+import com.unina.oobd2324gr18.utils.MethodNotImplemented;
+import com.unina.oobd2324gr18.DTO.OrderDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.*;
+import java.util.*;
+import java.time.format.DateTimeFormatter;
 
 public class AccountDAOPostgresql implements AccountDAO {
+  private OperatorDTO populateOperatorFromResultSet(final ResultSet resultSet) throws SQLException {
+    return new OperatorDTO(populateAccountFromResultSet(resultSet), resultSet.getString("businessemail"));
+  }
+
+  private AccountDTO populateAccountFromResultSet(final ResultSet resultSet) throws SQLException {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjust the pattern to your date format
+    String birthDateString = resultSet.getString("birthDate");
+    LocalDate birthDate = LocalDate.parse(birthDateString, formatter);
+    SavedAddressDAO addressDAO = new SavedAddressDAOPostgresql();
+
+    return new AccountDTO(resultSet.getString("name"), resultSet.getString("surname"), resultSet.getString("email"),
+                          resultSet.getString("password"), birthDate, addressDAO.extractAddress(resultSet.getString("addressCity"), resultSet.getString("addressProvince"), resultSet.getString("addressZipCode"), resultSet.getString("addressStreet"), resultSet.getString("addressCivicNumber"), resultSet.getString("addressState")));
+  }
 
   @Override
   public int insert(AccountDTO entity) throws SQLException {
-    return 0;
+    throw new MethodNotImplemented();
   }
 
   @Override
   public List<AccountDTO> findAll() throws SQLException {
-    return null;
+    throw new MethodNotImplemented();
   }
 
   @Override
   public int update(AccountDTO entity) throws SQLException {
-    return 0;
-  }
-
-  private AccountDTO populateAccountFromResultSet(final ResultSet resultSet) throws SQLException {
-    return new AccountDTO(
-      resultSet.getString("name"),
-      resultSet.getString("surname"),
-      resultSet.getString("email"),
-      resultSet.getDate("birthdate").toLocalDate(),
-      resultSet.getString("password")
-    );
-  }
-
-  private DriverDTO populateDriverFromResultSet(final ResultSet resultSet) throws SQLException {
-    return new DriverDTO(
-      resultSet.getInt("id"),
-      resultSet.getString("name"),
-      resultSet.getString("surname"),
-      resultSet.getString("license_number"),
-      resultSet.getString("email"),
-      resultSet.getString("phone"),
-      resultSet.getString("status")
-    );
-  }
-
-  private OperatorDTO populateOperatorFromResultSet(final ResultSet resultSet) throws SQLException {
-    return new OperatorDTO(
-      resultSet.getString("name"),
-      resultSet.getString("surname"),
-      resultSet.getString("business_email"),
-      resultSet.getString("password")
-    );
+    throw new MethodNotImplemented();
   }
 
   @Override
   public AccountDTO findAccountByEmail(String email) throws SQLException {
-    Connection con = DBConnection.getConnectionBySchema("uninadelivery");
+    Connection con = DatabaseConnectionDAO.getConnectionBySchema("uninadelivery");
     AccountDTO account = null;
     PreparedStatement psSelect = null;
     ResultSet rs = null;
@@ -219,7 +201,7 @@ public class AccountDAOPostgresql implements AccountDAO {
     return account;
   }
 
-  @Override
+/*  @Override
   public List<DriverDTO> findCompatiblesDrivers(WarehouseDTO warehouse, LocalDate date) throws SQLException {
     List<DriverDTO> drivers = new ArrayList<>();
     Connection con = DatabaseConnectionDAO.getConnectionBySchema("uninadelivery");
@@ -248,24 +230,10 @@ public class AccountDAOPostgresql implements AccountDAO {
     }
 
     return drivers;
-  }
+  }*/
 
   @Override
   public int delete(AccountDTO account) throws SQLException {
-    Connection con = DBConnection.getConnectionBySchema("uninadelivery");
-    PreparedStatement psDelete = null;
-
-    try {
-      psDelete = con.prepareStatement("DELETE FROM account WHERE email = ?");
-      psDelete.setString(1, account.getEmail());
-      psDelete.executeUpdate();
-    } finally {
-      if (psDelete != null) {
-        psDelete.close();
-      }
-      if (con != null) {
-        con.close();
-      }
-    }
+    throw new MethodNotImplemented();
   }
 }
