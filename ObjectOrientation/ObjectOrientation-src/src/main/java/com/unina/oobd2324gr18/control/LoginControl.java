@@ -21,6 +21,9 @@ public final class LoginControl extends BasicControl {
   private static LoginControl instance;
   private AccountDAO accountDAO = new AccountDAOPostgresql();
 
+  protected static final int WIDTH = 800;
+  protected static final int HEIGHT = 600;
+
   private LoginControl() {
     super("LoginPage");
   }

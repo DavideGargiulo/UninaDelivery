@@ -125,11 +125,11 @@ public abstract class BasicControl {
   }
 
   public double getWidth() {
-    return 1280.0;
+    return this instanceof LoginControl ? LoginControl.WIDTH : Math.max(NonLoginControl.WIDTH, App.getStage().getWidth());
   }
 
   public double getHeight() {
-    return 720.0;
+    return this instanceof LoginControl ? LoginControl.HEIGHT : Math.max(NonLoginControl.HEIGHT, App.getStage().getHeight());
   }
 
   /**
