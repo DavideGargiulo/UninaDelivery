@@ -30,6 +30,7 @@ public abstract class BasePageController<T extends BasicControl> {
   public void init(final T control) {
     this.control = control;
     initialize(control);
+    makeWindowDraggable();
   }
 
   /**
@@ -50,5 +51,36 @@ public abstract class BasePageController<T extends BasicControl> {
 
   private void setControl(final T c) {
     control = c;
+  }
+
+  /**
+   * Makes the window draggable by mouse.
+   */
+  private void makeWindowDraggable() {
+    Stage stage = App.getStage();
+    stage.sceneProperty().addListener((obs, oldScene, newScene) -> {
+      if (newScene != null) {
+        newScene.setOnMousePressed(event -> handleMousePressed(event));
+        newScene.setOnMouseDragged(event -> handleMouseDragged(event));
+      }
+    });
+
+    // If the scene is already set
+    Scene currentScene = stage.getScene();
+    if (currentScene != null) {
+      currentScene.setOnMousePressed(event -> handleMousePressed(event));
+      currentScene.setOnMouseDragged(event -> handleMouseDragged(event));
+    }
+  }
+
+  private void handleMousePressed(MouseEvent event) {
+    xOffset = event.getSceneX();
+    yOffset = event.getSceneY();
+  }
+
+  private void handleMouseDragged(MouseEvent event) {
+    Stage primaryStage = App.getStage();
+    primaryStage.setX(event.getScreenX() - xOffset);
+    primaryStage.setY(event.getScreenY() - yOffset);
   }
 }

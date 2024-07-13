@@ -65,5 +65,4 @@ public final class DatabaseConnectionDAO {
     }
     return conn;
   }
-
 }

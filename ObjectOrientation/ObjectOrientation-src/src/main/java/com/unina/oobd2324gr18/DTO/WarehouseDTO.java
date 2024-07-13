@@ -165,9 +165,9 @@ public class WarehouseDTO {
     if (o == null || getClass() != o.getClass()) return false;
     WarehouseDTO deposit = (WarehouseDTO) o;
     return warehouseId == deposit.warehouseId &&
-        Float.compare(deposit.occupiedSpace, occupiedSpace) == 0 &&
-        Float.compare(deposit.maxCapacity, maxCapacity) == 0 &&
-        Objects.equals(address, deposit.address);
+      Float.compare(deposit.occupiedSpace, occupiedSpace) == 0 &&
+      Float.compare(deposit.maxCapacity, maxCapacity) == 0 &&
+      Objects.equals(address, deposit.address);
   }
 
   @Override
