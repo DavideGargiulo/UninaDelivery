@@ -62,7 +62,7 @@ public final class Session {
    * @return L'ordine selezionato.
    */
   public static OrderDTO getSelectedOrder() {
-    return selectedOrder;
+    return Session.selectedOrder;
   }
 
   /**
