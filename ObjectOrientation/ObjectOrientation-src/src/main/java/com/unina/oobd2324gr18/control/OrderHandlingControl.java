@@ -1,5 +1,10 @@
 package com.unina.oobd2324gr18.control;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.unina.oobd2324gr18.DAO.AccountDAO;
 import com.unina.oobd2324gr18.DAO.AccountDAOPostgresql;
 import com.unina.oobd2324gr18.DAO.CourierDAO;
@@ -12,37 +17,25 @@ import com.unina.oobd2324gr18.DAO.ShipmentDAO;
 import com.unina.oobd2324gr18.DAO.ShipmentDAOPostgresql;
 import com.unina.oobd2324gr18.DAO.WarehouseDAO;
 import com.unina.oobd2324gr18.DAO.WarehouseDAOPostgresql;
-import com.unina.oobd2324gr18.DTO.CourierDTO;
 import com.unina.oobd2324gr18.DTO.CourierVehicleDTO;
 import com.unina.oobd2324gr18.DTO.DriverDTO;
-import com.unina.oobd2324gr18.DTO.OrderDTO;
-import com.unina.oobd2324gr18.DTO.SavedAddressDTO;
+import com.unina.oobd2324gr18.DTO.OperatorDTO;
 import com.unina.oobd2324gr18.DTO.ShipmentDTO;
 import com.unina.oobd2324gr18.DTO.WarehouseDTO;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.regex.Pattern;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
 public final class OrderHandlingControl extends NonLoginControl {
 
   private OrderDAO orderdao = new OrderDAOPostgresql();
-
   private ShipmentDAO shipmentdao = new ShipmentDAOPostgresql();
-
   private WarehouseDAO warehousedao = new WarehouseDAOPostgresql();
-
   private CourierDAO courierdao = new CourierDAOPostgresql();
-
-  private CourierVehicleDAO couriervehicledao =
-    new CourierVehicleDAOPostgresql();
-
+  private CourierVehicleDAO couriervehicledao = new CourierVehicleDAOPostgresql();
   private AccountDAO accountdao = new AccountDAOPostgresql();
+
+  private static final Logger logger = Logger.getLogger(OrderHandlingControl.class.getName());
 
   private static OrderHandlingControl instance;
 
@@ -57,77 +50,181 @@ public final class OrderHandlingControl extends NonLoginControl {
     return instance;
   }
 
-  public void goToShipmentPage() {
-    // TODO
+  public void goToOrdersPage() {
+    try {
+      setScene("Orders");
+    } catch (Exception e) {
+      handleGeneralError(e);
+    }
   }
 
-  private boolean warehouseHaveEnoughProduct(final OrderDAO order) {
-    // TODO
-    return false;
+  // Metodo shipSelectedOrder con ShipmentDTO
+  public void shipSelectedOrder(final ShipmentDTO shipment) {
+    try {
+      if (!confirmShipment(shipment)) {
+        return;  // Esci se la spedizione non è confermata
+      }
+
+      processShipment(shipment);  // Effettua la spedizione
+      showSuccessModal();  // Mostra messaggio di successo
+
+    } catch (SQLException e) {
+      handleDatabaseError(e);
+    } catch (Exception e) {
+      handleGeneralError(e);
+    }
   }
 
-  public void goToOrderPage() {
-    // TODO
+  // Metodo shipSelectedOrder con parametri per creazione spedizione
+  public void shipSelectedOrder(final LocalDate shippingDate, final WarehouseDTO warehouse, final CourierVehicleDTO vehicle, final DriverDTO driver) {
+    try {
+      // Crea la spedizione
+      ShipmentDTO shipment = createShipment(shippingDate, warehouse, vehicle);
+
+      // Conferma e processa la spedizione
+      if (confirmShipment(shippingDate)) {
+        processShipment(shipment);
+        assignDriver(shipment, driver);
+        showSuccessModal();
+      }
+    } catch (SQLException e) {
+      handleDatabaseError(e);
+    } catch (Exception e) {
+      handleGeneralError(e);
+    }
   }
 
-  public boolean isEmailValid(final String email) {
-    // TODO
-    return false;
+private ShipmentDTO createShipment(final LocalDate shippingDate, final WarehouseDTO warehouse, final CourierVehicleDTO vehicle) {
+    if (warehouse == null || vehicle == null) {
+        throw new IllegalArgumentException("Magazzino o veicolo non validi per la spedizione");
+    }
+
+    // Recupera l'operatore attualmente loggato
+    OperatorDTO operator = Session.getOperatorLogged();
+
+    // Verifica la presenza di un operatore valido
+    if (operator == null) {
+        throw new IllegalStateException("Nessun operatore loggato per la spedizione");
+    }
+
+    // Usa il costruttore corretto per ShipmentDTO
+    return new ShipmentDTO(
+        shippingDate,      // Data di spedizione
+        operator,          // Operatore che gestisce la spedizione
+        warehouse,         // Magazzino di partenza
+        vehicle            // Veicolo del corriere
+    );
+}
+
+
+  // Conferma la spedizione
+  private boolean confirmShipment(ShipmentDTO shipment) {
+    // Conferma la spedizione e controlla le date
+    if (!isShipmentConfirmed(shipment)) {
+      return false;
+    }
+    return true;
   }
 
-  public OrderDAO getOrder() {
-    return orderdao;
+  private boolean confirmShipment(LocalDate shippingDate) {
+    return isShipmentConfirmed(shippingDate);
   }
 
-  public void shipSelectedOrder(final ShipmentDAO shipment) {
-    // TODO
+  // Processa la spedizione
+  private void processShipment(ShipmentDTO shipment) throws SQLException {
+    // Spedisce l'ordine e aggiorna il database
+    shipmentdao.shipOrder(Session.getSelectedOrder(), shipment);
   }
 
-  public void shipSelectedOrder(final OrderDTO order) {
-    // TODO
+  // Assegna il conducente al corriere
+  private void assignDriver(ShipmentDTO shipment, DriverDTO driver) throws SQLException {
+    shipmentdao.assignDriver(shipment, driver);
   }
 
-  private ShipmentDTO createShipment(final OrderDTO order) {
-    // TODO
-    return null;
-  }
-
-  public void insertShipment(final ShipmentDTO shipment) {
-    // TODO
-  }
-
-  public void shipOrder(final OrderDTO order) {
-    // TODO
-  }
-
-  public void assignDriverToCourier(
-    final DriverDTO driver,
-    final CourierDTO courier
-  ) {
-    // TODO
-  }
-
-  private String createConfirmationMessage(final LocalDate shippingDate) {
-    // TODO
-    return null;
-  }
-
-  private String createConfirmationMessage(final ShipmentDAO shipment) {
-    // TODO
-    return null;
-  }
-
-  private boolean isShipmentConfirmed(final ShipmentDAO shipment) {
-    // TODO
-    return false;
+  // Conferma con l'utente e controlla le date di spedizione
+  private boolean isShipmentConfirmed(final ShipmentDTO shipment) {
+    String message = createConfirmationMessage(shipment);
+    return confirmWithUser(message) && validateShippingDate(shipment);
   }
 
   private boolean isShipmentConfirmed(final LocalDate date) {
-    // TODO
-    return false;
+    String message = createConfirmationMessage(date);
+    return confirmWithUser(message);
   }
 
+  private boolean confirmWithUser(String message) {
+    Optional<ButtonType> modalResponse = showAlert(
+      Alert.AlertType.CONFIRMATION, "Conferma", "Conferma la spedizione", message
+    );
+    return modalResponse.isPresent() && modalResponse.get() == ButtonType.OK;
+  }
+
+  private boolean validateShippingDate(ShipmentDTO shipment) {
+    LocalDate shippingDate = shipment.getShipmentDate();
+    LocalDate expectedDeliveryDate = Session.getSelectedOrder().getDeliveryDate();
+
+    if (shippingDate.isAfter(expectedDeliveryDate)) {
+      showAlert(
+        Alert.AlertType.ERROR, "Errore", "Data di spedizione non valida",
+        "La data di spedizione non può essere successiva alla data di consegna prevista"
+      );
+      return false;
+    }
+    return true;
+  }
+
+  // Messaggio di conferma per la spedizione
+  private String createConfirmationMessage(final ShipmentDTO shipment) {
+    return "Confermi la spedizione dell'ordine " +
+           shipment.getShipmentId() + " a " + shipment.getShipmentDate() + "?";
+  }
+
+  private String createConfirmationMessage(final LocalDate shippingDate) {
+    return "Confermi la spedizione per il giorno " + shippingDate + "?";
+  }
+
+  // Inserisci la spedizione nel database
+  public void insertShipment(final ShipmentDTO shipment) throws SQLException {
+    if (shipment == null || shipment.getShipmentId() == 0) {
+      throw new IllegalArgumentException("Spedizione non valida o già inserita");
+    }
+    shipment.setShipmentId(shipmentdao.insert(shipment));
+  }
+
+  // Gestione degli errori SQL
+  private void handleDatabaseError(SQLException e) {
+    logger.severe("Errore durante la spedizione dell'ordine: " + e.getMessage());
+    showAlert(Alert.AlertType.ERROR, "Errore", "Errore durante la spedizione", "Errore con il database. Riprova più tardi.");
+  }
+
+  // Gestione degli errori generici
+  private void handleGeneralError(Exception e) {
+    logger.severe("Errore generale durante la spedizione: " + e.getMessage());
+    showAlert(Alert.AlertType.ERROR, "Errore", "Errore durante la spedizione", "Si è verificato un errore durante la spedizione. Riprova più tardi.");
+  }
+
+  // Mostra il messaggio di successo
   private void showSuccessModal() {
-    // TODO
+    ButtonType orderButtonType = new ButtonType("Gestisci ordini");
+    ButtonType homeButtonType = new ButtonType("Torna alla home");
+
+    Optional<ButtonType> modalResponse = showAlert(
+      Alert.AlertType.INFORMATION,
+      "Successo",
+      "Spedizione completata",
+      "La spedizione è stata completata con successo",
+      orderButtonType,
+      homeButtonType
+    );
+
+    modalResponse.ifPresent(
+      response -> {
+        if (response == orderButtonType) {
+          goToOrdersPage();
+        } else {
+          setPageName("Orders");
+        }
+      }
+    );
   }
 }
