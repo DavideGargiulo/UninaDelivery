@@ -6,13 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.unina.oobd2324gr18.DTO.CourierDTO;
-import com.unina.oobd2324gr18.DTO.CourierVehicleDTO;
+import com.unina.oobd2324gr18.DTO.DriverDTO;
 import com.unina.oobd2324gr18.DTO.OrderDTO;
 import com.unina.oobd2324gr18.DTO.ShipmentDTO;
-import com.unina.oobd2324gr18.DAO.WarehouseDAO;
 import com.unina.oobd2324gr18.utils.MethodNotImplemented;
-import com.unina.oobd2324gr18.DAO.DatabaseConnectionDAO;
 
 public class ShipmentDAOPostgresql implements ShipmentDAO{
 
@@ -61,7 +58,7 @@ public class ShipmentDAOPostgresql implements ShipmentDAO{
   }
 
   @Override
-  public int assignDriver(ShipmentDTO shipment, String driver) throws SQLException {
+  public int assignDriver(ShipmentDTO shipment, DriverDTO driver) throws SQLException {
     throw new MethodNotImplemented();
   }
 

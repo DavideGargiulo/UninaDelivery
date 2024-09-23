@@ -1,10 +1,11 @@
 package com.unina.oobd2324gr18.DAO;
 
-import com.unina.oobd2324gr18.DTO.OrderDTO;
-import com.unina.oobd2324gr18.DTO.ShipmentDTO;
-
 import java.sql.SQLException;
 import java.util.List;
+
+import com.unina.oobd2324gr18.DTO.DriverDTO;
+import com.unina.oobd2324gr18.DTO.OrderDTO;
+import com.unina.oobd2324gr18.DTO.ShipmentDTO;
 
 /**
  * Interfaccia per il Data Access Object (DAO) delle spedizioni.
@@ -36,7 +37,7 @@ public interface ShipmentDAO extends BasicDAO<ShipmentDTO> {
    * @return Il numero di righe aggiornate.
    * @throws SQLException Eccezione lanciata in caso di errori SQL.
    */
-  int assignDriver(ShipmentDTO shipment, String driver) throws SQLException;
+  int assignDriver(ShipmentDTO shipment, DriverDTO driver) throws SQLException;
 
   /**
    * Spedisce un ordine.
