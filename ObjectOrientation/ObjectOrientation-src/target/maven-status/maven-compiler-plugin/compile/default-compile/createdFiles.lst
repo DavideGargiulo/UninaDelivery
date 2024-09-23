@@ -18,8 +18,8 @@ com/unina/oobd2324gr18/DAO/SavedAddressDAO.class
 com/unina/oobd2324gr18/DTO/OperatorDTO$OperatorBuilder.class
 com/unina/oobd2324gr18/DAO/WarehouseDAOPostgresql.class
 com/unina/oobd2324gr18/control/BasicControl.class
-com/unina/oobd2324gr18/DTO/CourierDTO.class
 com/unina/oobd2324gr18/DTO/WarehouseDTO$StoredProduct.class
+com/unina/oobd2324gr18/DTO/CourierDTO.class
 com/unina/oobd2324gr18/DAO/ProductDAO.class
 com/unina/oobd2324gr18/DTO/DriverDTO.class
 com/unina/oobd2324gr18/DAO/ShipmentDAOPostgresql.class
