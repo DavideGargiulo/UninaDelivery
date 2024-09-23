@@ -134,3 +134,4 @@ public final class DriverDTO extends AccountDTO {
     return "DriverDTO [businessMail=" + businessMail + ", warehouse=" + warehouse + "]";
   }
 }
+

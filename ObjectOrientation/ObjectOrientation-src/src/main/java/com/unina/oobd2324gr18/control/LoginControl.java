@@ -4,10 +4,9 @@ import com.unina.oobd2324gr18.DAO.AccountDAO;
 import com.unina.oobd2324gr18.DAO.AccountDAOPostgresql;
 import com.unina.oobd2324gr18.DTO.OperatorDTO;
 import com.unina.oobd2324gr18.utils.SHA512;
+import java.sql.SQLException;
 import javafx.scene.control.Alert;
 
-import java.sql.SQLException;
-import java.util.regex.Pattern;
 
 /**
  * Gestisce il processo di login per l'applicazione.

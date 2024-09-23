@@ -7,11 +7,12 @@ import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.image.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.scene.input.MouseEvent;
 
 public abstract class BasePageController<T extends BasicControl> {
+
   // Controllo associato a questa pagina
   private T control;
 
@@ -58,12 +59,14 @@ public abstract class BasePageController<T extends BasicControl> {
    */
   private void makeWindowDraggable() {
     Stage stage = App.getStage();
-    stage.sceneProperty().addListener((obs, oldScene, newScene) -> {
-      if (newScene != null) {
-        newScene.setOnMousePressed(event -> handleMousePressed(event));
-        newScene.setOnMouseDragged(event -> handleMouseDragged(event));
-      }
-    });
+    stage
+      .sceneProperty()
+      .addListener((obs, oldScene, newScene) -> {
+        if (newScene != null) {
+          newScene.setOnMousePressed(event -> handleMousePressed(event));
+          newScene.setOnMouseDragged(event -> handleMouseDragged(event));
+        }
+      });
 
     // If the scene is already set
     Scene currentScene = stage.getScene();

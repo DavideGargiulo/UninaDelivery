@@ -1,115 +1,45 @@
 package com.unina.oobd2324gr18.boundary;
 
 import com.unina.oobd2324gr18.control.LoginControl;
-
-import io.github.palexdev.materialfx.controls.MFXPasswordField;
-import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
-import io.github.palexdev.materialfx.validation.Constraint;
-import io.github.palexdev.materialfx.validation.Severity;
-import javafx.beans.binding.Bindings;
-import javafx.css.PseudoClass;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import com.unina.oobd2324gr18.DTO.OperatorDTO;
-
-import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class LoginController extends BasePageController<LoginControl> {
 
-  private static final PseudoClass INVALID_PSEUDO_CLASS = PseudoClass.getPseudoClass("invalid");
-  private static final String[] upperChar = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z".split(" ");
-	private static final String[] lowerChar = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split(" ");
-	private static final String[] digits = "0 1 2 3 4 5 6 7 8 9".split(" ");
-	private static final String[] specialCharacters = "! @ # & ( ) – [ { } ]: ; ' , ? / * ~ $ ^ + = < > -".split(" ");
+    private double x = 0, y = 0;
 
-	@FXML
-	private MFXTextField textField;
+    @FXML
+    private AnchorPane sideBar;
 
-	@FXML
-	private MFXPasswordField passwordField;
+    private Stage stage;
 
-	@FXML
-	private Label validationLabel;
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        sideBar.setOnMousePressed(mouseEvent -> {
+            x = mouseEvent.getSceneX();
+            y = mouseEvent.getSceneY();
+        });
 
-  @FXML
-  private MFXButton loginButton;
+        sideBar.setOnMouseDragged(mouseEvent -> {
+            stage.setX(mouseEvent.getScreenX() - x);
+            stage.setY(mouseEvent.getScreenY() - y);
+        });
+    }
 
-  @FXML
-  public void initialize(URL location, ResourceBundle resources) {
-    Constraint lengthConstraint = Constraint.Builder.build()
-				.setSeverity(Severity.ERROR)
-				.setMessage("Password must be at least 8 characters long")
-				.setCondition(passwordField.textProperty().length().greaterThanOrEqualTo(8))
-				.get();
+    @Override
+    protected void initialize(final LoginControl control) {
+        // Non c'è bisogno di inizializzare nulla
+    }
 
-		Constraint digitConstraint = Constraint.Builder.build()
-				.setSeverity(Severity.ERROR)
-				.setMessage("Password must contain at least one digit")
-				.setCondition(Bindings.createBooleanBinding(
-						() -> containsAny(passwordField.getText(), "", digits),
-						passwordField.textProperty()
-				))
-				.get();
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
-		Constraint charactersConstraint = Constraint.Builder.build()
-				.setSeverity(Severity.ERROR)
-				.setMessage("Password must contain at least one lowercase and one uppercase characters")
-				.setCondition(Bindings.createBooleanBinding(
-						() -> containsAny(passwordField.getText(), "", upperChar) && containsAny(passwordField.getText(), "", lowerChar),
-						passwordField.textProperty()
-				))
-				.get();
-
-		Constraint specialCharactersConstraint = Constraint.Builder.build()
-				.setSeverity(Severity.ERROR)
-				.setMessage("Password must contain at least one special character")
-				.setCondition(Bindings.createBooleanBinding(
-						() -> containsAny(passwordField.getText(), "", specialCharacters),
-						passwordField.textProperty()
-				))
-				.get();
-
-		passwordField.getValidator()
-				.constraint(digitConstraint)
-				.constraint(charactersConstraint)
-				.constraint(specialCharactersConstraint)
-				.constraint(lengthConstraint);
-
-		passwordField.getValidator().validProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue) {
-				validationLabel.setVisible(false);
-				passwordField.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, false);
-			}
-		});
-
-		passwordField.delegateFocusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (oldValue && !newValue) {
-				List<Constraint> constraints = passwordField.validate();
-				if (!constraints.isEmpty()) {
-					passwordField.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, true);
-					validationLabel.setText(constraints.get(0).getMessage());
-					validationLabel.setVisible(true);
-				}
-			}
-		});
-  }
-
-  public static boolean containsAny(String str, String split, String... words) {
-    List<String> inputStringList = Arrays.asList(str.split(split));
-    List<String> wordsList = Arrays.asList(words);
-
-    return wordsList.stream().anyMatch(inputStringList::contains);
-	}
-
-
-  @Override
-  protected void initialize(final LoginControl control) {
-    // TODO
-  }
+    @FXML
+    void closeProgram(ActionEvent event) {
+        stage.close();
+    }
 }
