@@ -1,0 +1,44 @@
+\section{Introduzione}
+
+Questa documentazione fornisce una guida esaustiva sull'implementazione e sull'uso del sistema di gestione della logistica delle spedizioni di merci di \textbf{UninaDelivery}. L'applicativo, progettato con un'interfaccia grafica intuitiva, è destinato agli operatori di un'azienda di delivery, consentendo loro di gestire le operazioni logistiche in modo efficiente, preciso e organizzato.
+
+Il sistema offre le seguenti funzionalità principali:
+\begin{itemize}[leftmargin=*,label={\textbullet},itemsep=0pt,topsep=0pt,partopsep=0pt]
+  \item Visualizzare in tempo reale la lista degli ordini in attesa di evasione;
+  \item Pianificare e creare spedizioni per tali ordini, ottimizzando le risorse e tenendo conto della disponibilità delle merci nei depositi;
+  \item Generare e consultare report mensili sugli ordini evasi per migliorare supervisione, monitoraggio e pianificazione strategica.
+\end{itemize}
+
+\subsection{Assunzioni sul dominio}
+
+Il sistema \textbf{UninaDelivery} è stato progettato per un'azienda che gestisce spedizioni di:
+\begin{itemize}[leftmargin=*,label={\textbullet},itemsep=0pt,topsep=0pt,partopsep=0pt]
+  \item \textbf{Merce propria}, prodotta internamente;
+  \item \textbf{Merce di terzi}, gestita in custodia per conto di clienti esterni.
+\end{itemize}
+L'azienda opera a livello \textbf{nazionale}, coprendo l'intero territorio con una rete di depositi distribuiti.
+
+Gli operatori possono gestire sia spedizioni dirette verso i clienti, sia spostamenti intermedi tra depositi per ottimizzare la disponibilità di merci nei punti strategici. Inoltre, si assume che:
+\begin{itemize}[leftmargin=*,label={\textbullet},itemsep=0pt,topsep=0pt,partopsep=0pt]
+  \item Le spedizioni dirette verso un cliente avvengano preferibilmente da depositi nella stessa città del destinatario.
+  \item In caso di indisponibilità di prodotti nel deposito locale, il sistema supporti spedizioni intermedie da altri depositi o spostamenti interni, garantendo la completa evasione dell'ordine.
+  \item Ogni ordine sia limitato a un solo prodotto, con quantità variabile. Gli ordini complessi (contenenti più prodotti) vengono suddivisi automaticamente in ordini separati, a condizione che siano destinati alla stessa area geografica (identificata dal CAP) o al medesimo deposito finale.
+\end{itemize}
+
+\subsection{Obiettivo della documentazione}
+
+Questa documentazione mira a fornire una guida dettagliata e completa sulle funzionalità del sistema \textbf{UninaDelivery}, coprendo tutti gli aspetti fondamentali:
+\begin{itemize}[leftmargin=*,label={\textbullet},itemsep=0pt,topsep=0pt,partopsep=0pt]
+  \item Configurazione iniziale e requisiti di sistema;
+  \item Utilizzo quotidiano per la gestione operativa delle spedizioni;
+  \item Procedure di manutenzione e aggiornamento del software.
+\end{itemize}
+
+Il documento è pensato per diversi tipi di utenti:
+\begin{itemize}[leftmargin=*,label={\textbullet},itemsep=0pt,topsep=0pt,partopsep=0pt]
+  \item \textbf{Operatori logistici}, che utilizzeranno il sistema per la gestione pratica delle spedizioni;
+  \item \textbf{Amministratori di sistema}, responsabili della configurazione e manutenzione tecnica;
+  \item \textbf{Analisti e supervisori}, che sfrutteranno i report per monitorare e ottimizzare le attività logistiche.
+\end{itemize}
+
+Sia che siate nuovi al sistema o utenti esperti in cerca di informazioni dettagliate, questa guida è stata progettata per essere un riferimento intuitivo e affidabile.

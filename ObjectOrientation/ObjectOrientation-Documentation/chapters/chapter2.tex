@@ -1,0 +1,83 @@
+\section{Progettazione del Sistema}
+
+\subsection{Strumenti e Metodologie Utilizzate}
+
+Per progettare l'applicativo grafico per il sistema di gestione delle spedizioni, si è scelto di seguire il \textbf{pattern architetturale EBC} (\textbf{Entity-Boundary-Control}). Questo approccio è stato preferito in quanto promuove una chiara \textbf{separazione delle responsabilità} tra le componenti del sistema, facilitando la \textbf{manutenzione}, l'\textbf{aggiornamento} e la \textbf{scalabilità} dell'applicazione.
+
+Per la realizzazione dell'interfaccia grafica, è stato adottato il \textbf{framework JavaFX}, supportato dalla libreria \textbf{MaterialFX} per migliorare l'estetica dei componenti grafici e da \textbf{SceneBuilder} per la creazione e la gestione dei layout. Questa scelta è motivata dalla moderna implementazione del framework e dal supporto diretto di Oracle, che lo rende una soluzione stabile e ben documentata.
+
+La connessione con il database, implementato in \textbf{PostgreSQL}, è stata gestita attraverso \textbf{JDBC}, una soluzione semplice e diretta per la comunicazione tra il sistema e il database. Per la gestione delle dipendenze e delle routine di compilazione del progetto, si è utilizzato \textbf{Maven}, uno strumento standard per l'ecosistema Java.
+
+% \begin{note}[Teamwork e Versionamento]
+% Per la collaborazione tra membri del team, si è scelto \textbf{Git} come sistema di versionamento, con \textbf{GitHub} come piattaforma di hosting. Lo sviluppo è stato gestito tramite \textbf{branch separati}, \textbf{pull request} e \textbf{code review}. Inoltre, si sono adottate \textbf{GitHub Actions} per il controllo automatico della qualità del codice e per l'integrazione continua.
+% \end{note}
+
+\subsection{Architettura del Sistema e Class Diagram}
+
+Il sistema segue il pattern architetturale \textbf{EBC}, che suddivide il sistema in tre componenti principali: \textbf{Entity}, \textbf{Boundary} e \textbf{Control}.
+
+% \begin{note}[Leggibilità dei Class Diagram]
+% Per facilitare la comprensione, si presentano inizialmente i \textbf{Class Diagram} di ogni componente separatamente, seguiti dal \textbf{diagramma completo} per fornire una visione d'insieme delle interazioni tra i vari componenti. I diagrammi utilizzano \textbf{colori distintivi} per evidenziare l'appartenenza di ogni classe al rispettivo package.
+% \end{note}
+
+\subsection{Entity}
+
+La componente \textbf{Entity} è responsabile della gestione e della rappresentazione dei dati del sistema.
+
+Le classi che implementano il \textbf{design pattern DAO} (\textbf{Data Access Object}) si occupano dell'interazione con il database e delle operazioni di \textbf{CRUD} (\textbf{Create, Read, Update, Delete}).
+
+Le classi che implementano il \textbf{design pattern DTO} (\textbf{Data Transfer Object}) rappresentano il modello di dominio del sistema e contengono metodi getter e setter.
+
+Per migliorare la flessibilità, il package DAO utilizza un'interfaccia generica \textbf{BaseDAO} che definisce le operazioni di base. Ogni classe specifica estende questa interfaccia per implementare operazioni personalizzate.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=\textwidth]{classDiagrams/dao}
+% \caption{Class Diagram del package Entity/DAO}
+% \end{figure}
+
+\subsection{Boundary}
+
+La componente \textbf{Boundary} gestisce l'interfaccia utente, implementando la logica di visualizzazione e l'interazione con gli utenti.
+
+Le classi \textbf{Boundary} agiscono come \textbf{listener} per gli eventi generati dall'interfaccia grafica.
+
+Per garantire coerenza e ridurre la duplicazione di codice, si utilizzano classi astratte che generalizzano le operazioni comuni.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=\textwidth]{classDiagrams/boundaries}
+% \caption{Class Diagram del package Boundary}
+% \end{figure}
+
+\subsection{Control}
+
+La componente \textbf{Control} si occupa della \textbf{logica di business}, della validazione dei dati e della comunicazione tra Entity e Boundary.
+
+Ogni classe Control corrisponde a un caso d'uso specifico e implementa le operazioni richieste.
+
+Tutte le classi Control seguono il \textbf{design pattern Singleton} per garantire una gestione centralizzata delle operazioni.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=\textwidth]{classDiagrams/controls}
+% \caption{Class Diagram del package Control}
+% \end{figure}
+
+\subsection{Utils}
+
+Il package \textbf{Utils} contiene classi di utilità per funzioni comuni, come la gestione delle stringhe, la cifratura dei dati e la gestione delle eccezioni personalizzate. Tutte le classi in questo package sono \textbf{final} e contengono esclusivamente metodi statici.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=\textwidth]{classDiagrams/utils}
+% \caption{Class Diagram del package Utils}
+% \end{figure}
+
+\subsection{Class Diagram Completo}
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=\textwidth]{classDiagrams/full}
+% \caption{Class Diagram Completo del Sistema}
+% \end{figure}

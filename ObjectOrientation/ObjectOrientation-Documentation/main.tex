@@ -1,0 +1,28 @@
+\documentclass{uninaDeliveyClass}
+
+\reportlayout
+
+\begin{document}
+  \include{chapters/titlePage.tex}
+
+  \newpage
+
+  \newgeometry{
+    left=24.8mm,
+    top=24.8mm,
+    right=24.8mm,
+    bottom=24.8mm,
+    vmargin=0.7cm,
+    hmargin=2cm,
+    includeheadfoot=true,
+    headheight=30pt
+  }
+
+  \tableofcontents
+
+  \newpage
+
+  \include{chapters/chapter1}
+
+  \include{chapters/chapter2}
+\end{document}
