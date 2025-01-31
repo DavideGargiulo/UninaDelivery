@@ -26,6 +26,7 @@ import com.unina.oobd2324gr18.DTO.WarehouseDTO;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+
 public final class OrderHandlingControl extends NonLoginControl {
 
   private OrderDAO orderdao = new OrderDAOPostgresql();

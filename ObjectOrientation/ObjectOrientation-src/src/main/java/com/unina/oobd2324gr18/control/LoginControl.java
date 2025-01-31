@@ -9,7 +9,7 @@ import javafx.scene.control.Alert;
 
 
 /**
- * Gestisce il processo di login per l'applicazione.
+ * Gestisce il processo di   per l'applicazione.
  * Estende {@link BasicControl} per utilizzare funzionalità comuni di controllo dell'interfaccia utente.
  * Implementa il pattern Singleton per assicurarsi che esista una sola istanza di questa classe.
  *
